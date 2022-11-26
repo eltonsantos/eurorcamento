@@ -34,5 +34,15 @@ export const Container = styled.main`
         color: var(--red);
       }
     }
+
+    .options {
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+    }
+
+    .options svg {
+      cursor: pointer;
+    }
   }
 `;

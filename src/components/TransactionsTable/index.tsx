@@ -1,3 +1,4 @@
+import { PencilSimple, TrashSimple } from 'phosphor-react';
 import { useTransactions } from '../../hooks/useTransactions';
 import * as S from './styles';
 
@@ -14,6 +15,7 @@ export function TransactionsTable() {
             <th>Valor</th>
             <th>Categoria</th>
             <th>Data</th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
@@ -33,9 +35,15 @@ export function TransactionsTable() {
                     new Date(transaction.createdAt)
                   )}
                 </td>
+                <td>
+                  <div className="options">
+                    <PencilSimple size={20} weight="fill" />
+                    <TrashSimple size={20} weight="fill" color="red" />
+                  </div>
+                </td>
               </tr>
             )
-          }) : <tr><td colSpan={4} align="center">Não há transações cadastradas</td></tr>}
+          }) : <tr><td colSpan={5} align="center">Não há transações cadastradas</td></tr>}
         </tbody>
       </table>
     </S.Container>

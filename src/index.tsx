@@ -34,6 +34,7 @@ createServer({
 
   routes() {
     this.namespace = 'api';
+    
     this.get('/transactions', () => {
       return this.schema.all('transaction')
     });
@@ -41,6 +42,18 @@ createServer({
     this.post('/transactions', (schema, request) => {
       const data = JSON.parse(request.requestBody);
       return schema.create('transaction', data);
+    });
+
+    this.put('/transactions', (schema, request) => {
+      return null;
+    })
+
+    this.del('/transactions/:id', (schema, request): any => {
+      const id = request.params.id
+      // return schema.find('transaction', id)?.destroy()
+      //schema.db.transaction.remove({ id: request.params.id });
+      // console.log(request.params.id)
+      // return null;
     })
   }
 })

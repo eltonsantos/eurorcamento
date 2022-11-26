@@ -4,7 +4,7 @@ import * as S from './styles';
 
 export function TransactionsTable() {
 
-  const { transactions } = useTransactions()
+  const { transactions/*, updateTransaction, removeTransaction*/ } = useTransactions()
   
   return (
     <S.Container>
@@ -37,8 +37,17 @@ export function TransactionsTable() {
                 </td>
                 <td>
                   <div className="options">
-                    <PencilSimple size={20} weight="fill" />
-                    <TrashSimple size={20} weight="fill" color="red" />
+                    <PencilSimple
+                      size={20}
+                      weight="fill"
+                      // onClick={() => updateTransaction(id)}
+                    />
+                    <TrashSimple
+                      size={20}
+                      weight="fill"
+                      color="red"
+                      // onClick={() => removeTransaction(id)}
+                    />
                   </div>
                 </td>
               </tr>

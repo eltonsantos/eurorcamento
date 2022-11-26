@@ -19,6 +19,8 @@ interface TransactionsProviderProps {
 interface TransactionsContextData {
   transactions: Transaction[];
   createTransaction: (transaction: TransactionInput) => Promise<void>;
+  removeTransaction: (id: number) => void;
+  updateTransaction: (id: number) => Promise<void>;
 }
 
 const TransactionsContext = createContext<TransactionsContextData>({} as TransactionsContextData)
@@ -26,10 +28,12 @@ const TransactionsContext = createContext<TransactionsContextData>({} as Transac
 export function TransactionsProvider({ children }: TransactionsProviderProps) {
  
   const [transactions, setTransactions] = useState<Transaction[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    api.get('transactions')
-      .then(response => setTransactions(response.data.transactions))
+    api.get('transactions').then(response => setTransactions(response.data.transactions))
+    
+    setIsLoading(false)
   }, [])
 
   async function createTransaction(transactionInput: TransactionInput) {
@@ -43,8 +47,15 @@ export function TransactionsProvider({ children }: TransactionsProviderProps) {
     setTransactions([...transactions, transaction])
   }
 
+  async function updateTransaction() {}
+  
+  function removeTransaction(id: number) {
+    const filteredTransaction = transactions.filter(transaction => transaction.id !== id)
+    setTransactions(filteredTransaction)
+  }
+
   return (
-    <TransactionsContext.Provider value={{transactions, createTransaction}}>
+    <TransactionsContext.Provider value={{transactions, createTransaction, removeTransaction, updateTransaction}}>
       { children }
     </TransactionsContext.Provider>
   )

@@ -2,6 +2,10 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { createServer, Model } from 'miragejs';
 import { App } from './App';
+import { Login } from './components/Login';
+
+
+import { GlobalStyle } from './styles/globalLogin';
 
 createServer({
 
@@ -60,6 +64,8 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <React.StrictMode>
+    {/* <Login />
+    <GlobalStyle /> */}
     <App />
   </React.StrictMode>
 );

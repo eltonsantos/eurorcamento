@@ -51,9 +51,9 @@ export function TransactionsProvider({ children }: TransactionsProviderProps) {
   
   // Vejo meu async/await não servindo pra nada, rsrs
   async function removeTransaction(id: number) {
-    //await api.delete(`/transactions/${id}`); >> Não entendi por que não serviu de nada
+    await api.delete(`/transactions/${id}`); // Não entendi por que não serviu de nada
     const filteredTransaction = transactions.filter(transaction => transaction.id !== id)
-    //console.log(filteredTransaction)
+    console.log(filteredTransaction)
     setTransactions(filteredTransaction)
   }
 

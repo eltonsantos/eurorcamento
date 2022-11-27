@@ -44,16 +44,13 @@ createServer({
       return schema.create('transaction', data);
     });
 
-    this.put('/transactions', (schema, request) => {
+    this.put('/transactions/:id', (schema, request) => {
       return null;
     })
 
     this.del('/transactions/:id', (schema, request): any => {
-      const id = request.params.id
-      // return schema.find('transaction', id)?.destroy()
-      //schema.db.transaction.remove({ id: request.params.id });
-      // console.log(request.params.id)
-      // return null;
+      const id = request.params.id // Vejo que ta sendo chamada, mas não acho que esteja fazendo nada
+      return schema.find('transaction', id)?.destroy() // Não entendi por que fui obrigado a deixar o opcional ? Como por outra forma?
     })
   }
 })

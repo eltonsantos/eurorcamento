@@ -4,7 +4,7 @@ import * as S from './styles';
 
 export function TransactionsTable() {
 
-  const { transactions/*, updateTransaction, removeTransaction*/ } = useTransactions()
+  const { transactions, updateTransaction, removeTransaction } = useTransactions()
   
   return (
     <S.Container>
@@ -20,6 +20,7 @@ export function TransactionsTable() {
         </thead>
         <tbody>
           {transactions.length ? transactions.map((transaction) => {
+            // Como usar o isLoading que está em outro componente aqui para carregar somente apos a api ser carregada?
             return (
               <tr key={transaction.id}>
                 <td>{transaction.title}</td>
@@ -40,13 +41,13 @@ export function TransactionsTable() {
                     <PencilSimple
                       size={20}
                       weight="fill"
-                      // onClick={() => updateTransaction(id)}
+                      onClick={() => updateTransaction(transaction.id)}
                     />
                     <TrashSimple
                       size={20}
                       weight="fill"
                       color="red"
-                      // onClick={() => removeTransaction(id)}
+                      onClick={() => removeTransaction(transaction.id)} // Por que não consegui passar somente o id?
                     />
                   </div>
                 </td>

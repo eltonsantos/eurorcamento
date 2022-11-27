@@ -19,7 +19,7 @@ interface TransactionsProviderProps {
 interface TransactionsContextData {
   transactions: Transaction[];
   createTransaction: (transaction: TransactionInput) => Promise<void>;
-  removeTransaction: (id: number) => void;
+  removeTransaction: (id: number) => Promise<void>;
   updateTransaction: (id: number) => Promise<void>;
 }
 
@@ -28,11 +28,10 @@ const TransactionsContext = createContext<TransactionsContextData>({} as Transac
 export function TransactionsProvider({ children }: TransactionsProviderProps) {
  
   const [transactions, setTransactions] = useState<Transaction[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(true); // Como usar o isLoading?
 
   useEffect(() => {
     api.get('transactions').then(response => setTransactions(response.data.transactions))
-    
     setIsLoading(false)
   }, [])
 
@@ -43,14 +42,18 @@ export function TransactionsProvider({ children }: TransactionsProviderProps) {
     });
     
     const { transaction } = response.data
-
     setTransactions([...transactions, transaction])
   }
 
-  async function updateTransaction() {}
+  async function updateTransaction(id: number) {
+    // Como criar essa função?
+  }
   
-  function removeTransaction(id: number) {
+  // Vejo meu async/await não servindo pra nada, rsrs
+  async function removeTransaction(id: number) {
+    //await api.delete(`/transactions/${id}`); >> Não entendi por que não serviu de nada
     const filteredTransaction = transactions.filter(transaction => transaction.id !== id)
+    //console.log(filteredTransaction)
     setTransactions(filteredTransaction)
   }
 

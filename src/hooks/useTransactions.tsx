@@ -21,6 +21,7 @@ interface TransactionsContextData {
   createTransaction: (transaction: TransactionInput) => Promise<void>;
   removeTransaction: (id: number) => Promise<void>;
   updateTransaction: (id: number) => Promise<void>;
+  isLoading: boolean;
 }
 
 const TransactionsContext = createContext<TransactionsContextData>({} as TransactionsContextData)
@@ -58,7 +59,7 @@ export function TransactionsProvider({ children }: TransactionsProviderProps) {
   }
 
   return (
-    <TransactionsContext.Provider value={{transactions, createTransaction, removeTransaction, updateTransaction}}>
+    <TransactionsContext.Provider value={{transactions, createTransaction, removeTransaction, updateTransaction, isLoading}}>
       { children }
     </TransactionsContext.Provider>
   )

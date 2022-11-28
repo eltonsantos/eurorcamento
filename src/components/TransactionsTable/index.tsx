@@ -4,7 +4,7 @@ import * as S from './styles';
 
 export function TransactionsTable() {
 
-  const { transactions, updateTransaction, removeTransaction } = useTransactions()
+  const { transactions, updateTransaction, removeTransaction, isLoading } = useTransactions()
   
   return (
     <S.Container>

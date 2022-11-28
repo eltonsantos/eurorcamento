@@ -1,10 +1,22 @@
 import { PencilSimple, TrashSimple } from 'phosphor-react';
+import { useState } from 'react';
 import { useTransactions } from '../../hooks/useTransactions';
+import { UpdateTransactionModal } from '../UpdateTransactionModal';
 import * as S from './styles';
 
 export function TransactionsTable() {
 
   const { transactions, updateTransaction, removeTransaction, isLoading } = useTransactions()
+
+  const [isUpdateTransactionModalOpen, setIsUpdateTransactionModalOpen] = useState(false);
+
+  function handleOpenUpdateTransactionModal() {
+    setIsUpdateTransactionModalOpen(true)
+  }
+
+  function handleCloseUpdateTransactionModal() {
+    setIsUpdateTransactionModalOpen(false)
+  }
   
   return (
     <S.Container>
@@ -41,7 +53,8 @@ export function TransactionsTable() {
                     <PencilSimple
                       size={20}
                       weight="fill"
-                      onClick={() => updateTransaction(transaction.id)}
+                      onClick={handleOpenUpdateTransactionModal}
+                      // onClick={() => updateTransaction(transaction.id)}
                     />
                     <TrashSimple
                       size={20}
@@ -56,6 +69,13 @@ export function TransactionsTable() {
           }) : <tr><td colSpan={5} align="center">Não há transações cadastradas</td></tr>}
         </tbody>
       </table>
+
+      <UpdateTransactionModal
+        isOpen={isUpdateTransactionModalOpen}
+        onRequestClose={handleCloseUpdateTransactionModal}
+      />
+
     </S.Container>
+
   )
 }

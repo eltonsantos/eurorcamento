@@ -48,14 +48,29 @@ export function TransactionsProvider({ children }: TransactionsProviderProps) {
 
   async function updateTransaction(id: number) {
     // Como criar essa função?
+    try {
+      const response = await api.put(`/transactions/${id}`, {
+        ...transactions,
+      })
+      const updateTransaction = transactions.map(transaction => transaction.id === id ? { ...response.data } : transaction)
+
+      setTransactions(updateTransaction)
+
+    } catch (err) {
+      console.log(err);
+    }
   }
   
   // Vejo meu async/await não servindo pra nada, rsrs
   async function removeTransaction(id: number) {
-    await api.delete(`/transactions/${id}`); // Não entendi por que não serviu de nada
-    const filteredTransaction = transactions.filter(transaction => transaction.id !== id)
-    console.log(filteredTransaction)
-    setTransactions(filteredTransaction)
+    try {
+      await api.delete(`/transactions/${id}`); // Não entendi por que não serviu de nada
+      const filteredTransaction = transactions.filter(transaction => transaction.id !== id)
+      console.log(filteredTransaction)
+      setTransactions(filteredTransaction)
+    } catch (err) {
+      console.log(err);
+    }
   }
 
   return (

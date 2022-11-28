@@ -4,7 +4,6 @@ import { createServer, Model } from 'miragejs';
 import { App } from './App';
 import { Login } from './components/Login';
 
-
 import { GlobalStyle } from './styles/globalLogin';
 
 createServer({
@@ -48,8 +47,9 @@ createServer({
       return schema.create('transaction', data);
     });
 
-    this.put('/transactions/:id', (schema, request) => {
-      return null;
+    this.put('/transactions/:id', (schema, request): any => {
+      const id = request.params.id
+      return schema.find('transaction', id)?.update;
     })
 
     this.del('/transactions/:id', (schema, request): any => { // Por que esse any??

@@ -59,7 +59,7 @@ export const Container = styled.div`
   }
 
   .form-login label {
-    background-color: #222222;
+    background-color: var(--green);
     border-bottom-right-radius: 0;
     border-top-right-radius: 0;
     padding-left: 1.25rem;
@@ -82,6 +82,7 @@ export const Container = styled.div`
   }
   .form-login input[type="submit"]:focus, .form-login input[type="submit"]:hover {
     background-color: #197071;
+    cursor: pointer;
   }
   .form-field {
     display: -webkit-box;

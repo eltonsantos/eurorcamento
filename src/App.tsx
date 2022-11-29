@@ -10,6 +10,8 @@ import { TransactionsProvider } from './hooks/useTransactions';
 
 import { GlobalStyle } from './styles/global';
 import { GlobalStyleLogin } from './styles/globalLogin';
+import { Footer } from './components/Footer';
+import { Menu } from './components/Menu';
 
 Modal.setAppElement('#root')
 
@@ -37,6 +39,7 @@ export function App() {
           } />
           <Route path="/transactions" element={
             <>
+              <Menu />
               <Header
                 onOpenNewTransactionModal={handleOpenNewTransactionModal}
               />
@@ -45,6 +48,7 @@ export function App() {
                 isOpen={isNewTransactionModalOpen}
                 onRequestClose={handleCloseNewTransactionModal}
               />
+              <Footer />
               <GlobalStyle />
             </>
           } />

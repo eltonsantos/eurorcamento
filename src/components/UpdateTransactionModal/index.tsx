@@ -27,6 +27,7 @@ export function UpdateTransactionModal({ isOpen, onRequestClose }: UpdateTransac
   
   async function handleUpdateTransaction(event: FormEvent) {
     event.preventDefault()
+    setEditingTransaction(editingTransaction)
     onRequestClose()
   }
 

@@ -40,12 +40,14 @@ export function Login() {
       } else {
         setIsSubmitted(true);
       }
+      
     } else {
       // Email not found
       setErrorMessages({ name: "email", message: errors.email });
     }
 
     if(isSubmitted) {
+      localStorage.setItem('@eurorcamento', JSON.stringify(userData));
       navigate("/transactions");
       window.location.reload();
     } else {

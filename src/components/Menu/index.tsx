@@ -8,7 +8,7 @@ export function Menu() {
           <button>Alterar Tema</button>
         </li>
         <li>
-          <a href="#">Sair</a>
+          <a href="/">Sair</a>
         </li>
       </ul>
     </S.Container>

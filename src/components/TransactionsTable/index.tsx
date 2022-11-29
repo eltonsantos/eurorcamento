@@ -31,6 +31,7 @@ export function TransactionsTable() {
           </tr>
         </thead>
         <tbody>
+
           {transactions.length ? transactions.map((transaction) => {
             // Como usar o isLoading que está em outro componente aqui para carregar somente apos a api ser carregada?
             return (

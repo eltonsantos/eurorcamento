@@ -29,21 +29,25 @@ export function App() {
     <TransactionsProvider>
       <BrowserRouter>
         <Routes>
-          <Route path="/">
-            <Login />
-            <GlobalStyleLogin />
-          </Route>
-          <Route path="/transactions">
-            <Header
-              onOpenNewTransactionModal={handleOpenNewTransactionModal}
-            />
-            <Dashboard />
-            <NewTransactionModal
-              isOpen={isNewTransactionModalOpen}
-              onRequestClose={handleCloseNewTransactionModal}
-            />
-            <GlobalStyle />
-          </Route>
+          <Route path="/" element={
+            <>
+              <Login />
+              <GlobalStyleLogin />
+            </>
+          } />
+          <Route path="/transactions" element={
+            <>
+              <Header
+                onOpenNewTransactionModal={handleOpenNewTransactionModal}
+              />
+              <Dashboard />
+              <NewTransactionModal
+                isOpen={isNewTransactionModalOpen}
+                onRequestClose={handleCloseNewTransactionModal}
+              />
+              <GlobalStyle />
+            </>
+          } />
         </Routes>
       </BrowserRouter>
     </TransactionsProvider>

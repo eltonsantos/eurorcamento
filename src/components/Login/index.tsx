@@ -1,13 +1,22 @@
 import { Lock, User } from 'phosphor-react';
+import { FormEvent } from 'react';
 import logoImg from '../../assets/logo.svg';
 import * as S from "./styles";
 
 export function Login() {
+
+  function handleLogin(event: FormEvent) {
+    event.preventDefault();
+
+    console.log("aqui")
+
+  }
+
   return (
     <S.Container>
       <img src={logoImg} alt="€urorçamento" />
       <div className="login-item">
-        <form action="" method="post" className="form form-login">
+        <form action="/transactions" method="get" className="form form-login">
           <div className="form-field">
             <label className="user" htmlFor="login-username">
               <User weight="fill" color="#fff" />

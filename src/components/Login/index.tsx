@@ -13,10 +13,10 @@ export function Login() {
   const [password, setPassword] = useState('')
   const [error, setError] = useState(false)
 
-  function handleLogin(event: FormEvent) {
+  async function handleLogin(event: FormEvent) {
     event.preventDefault();
 
-    signInWithEmailAndPassword(auth, email, password)
+    await signInWithEmailAndPassword(auth, email, password)
       .then(() => {
         console.log("Entrou aqui")
         navigate('/transactions')

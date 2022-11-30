@@ -15,7 +15,6 @@ export function Login() {
 
   function handleLogin(event: FormEvent) {
     event.preventDefault();
-    //console.log("Tentou logar")
 
     signInWithEmailAndPassword(auth, email, password)
       .then(() => {
@@ -26,7 +25,6 @@ export function Login() {
         setError(true);
         console.log("Error é: " + error)
       });
-
   }
 
   return (

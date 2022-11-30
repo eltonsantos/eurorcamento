@@ -33,7 +33,7 @@ export const Container = styled.div`
     transition: background-color .3s;
   }
 
-  .user:before {
+  .email:before {
     content: '\f007';
     font: 14px fontawesome;
     color: #5b5b5b;
@@ -45,12 +45,12 @@ export const Container = styled.div`
     color: #5b5b5b;
   }
 
-  .form input[type="password"], .form input[type="text"], .form input[type="submit"] {
+  .form input[type="password"], .form input[type="email"], .form input[type="submit"] {
     width: 100%;
   }
 
   .form-login label,
-  .form-login input[type="text"],
+  .form-login input[type="email"],
   .form-login input[type="password"],
   .form-login input[type="submit"] {
     border-radius: 0.25rem;
@@ -66,12 +66,12 @@ export const Container = styled.div`
     padding-right: 1.25rem;
   }
 
-  .form-login input[type="text"], .form-login input[type="password"] {
+  .form-login input[type="email"], .form-login input[type="password"] {
     background-color: #ffffff;
     border-bottom-left-radius: 0;
     border-top-left-radius: 0;
   }
-  .form-login input[type="text"]:focus, .form-login input[type="text"]:hover, .form-login input[type="password"]:focus, .form-login input[type="password"]:hover {
+  .form-login input[type="email"]:focus, .form-login input[type="email"]:hover, .form-login input[type="password"]:focus, .form-login input[type="password"]:hover {
     background-color: #eeeeee;
   }
   .form-login input[type="submit"] {

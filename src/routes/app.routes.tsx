@@ -7,14 +7,10 @@ import { GlobalStyleLogin } from '../styles/globalLogin';
 const AppRoutes = () => {
 
   return (
-    <Routes>
-      <Route path="/" element={
-        <>
-          <Login />
-          <GlobalStyleLogin />
-        </>
-      } />
-    </Routes>
+    <>
+      <Login />
+      <GlobalStyleLogin />
+    </>
   )
 }
 

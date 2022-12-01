@@ -2,7 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { createServer, Model } from 'miragejs';
 import { App } from './App';
-
+import { BrowserRouter } from 'react-router-dom';
+import { TransactionsProvider } from './hooks/useTransactions';
 
 createServer({
 
@@ -64,6 +65,10 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <React.StrictMode>
-    <App />
+    <TransactionsProvider>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </TransactionsProvider>
   </React.StrictMode>
 );

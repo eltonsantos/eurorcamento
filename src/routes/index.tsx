@@ -1,16 +1,15 @@
 import { useState } from 'react';
+import { Routes, Route, Outlet } from 'react-router-dom';
 import App from './app.routes';
 import Auth from './auth.routes';
 
-const Routes = () => {
-
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+const Rotas = () => {
 
   return (
-    <>
-      { isLoggedIn ? <Auth /> : <App />}
-    </>
+    <Routes>
+      <Route path="/transactions" element={<Auth />} />
+    </Routes>
   )
 }
 
-export default Routes;
+export default Rotas;

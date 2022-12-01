@@ -21,18 +21,14 @@ const AuthRoutes = () => {
     setIsNewTransactionModalOpen(false)
   }
   return (
-    <Routes>
-      <Route path="/transactions" element={
-        <>
-          <Menu />
-          <Header onOpenNewTransactionModal={handleOpenNewTransactionModal} />
-          <Dashboard />
-          <NewTransactionModal isOpen={isNewTransactionModalOpen} onRequestClose={handleCloseNewTransactionModal} />
-          <Footer />
-          <GlobalStyle />
-        </>
-      } />
-    </Routes>
+    <>
+      <Menu />
+      <Header onOpenNewTransactionModal={handleOpenNewTransactionModal} />
+      <Dashboard />
+      <NewTransactionModal isOpen={isNewTransactionModalOpen} onRequestClose={handleCloseNewTransactionModal} />
+      <Footer />
+      <GlobalStyle />
+    </>
   )
 }
 

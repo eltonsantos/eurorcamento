@@ -1,17 +1,18 @@
 import Modal from 'react-modal';
-import Routes from './routes';
-import { BrowserRouter } from "react-router-dom"
+import Rotas from './routes';
+import { Routes, Route, Outlet } from "react-router-dom";
 import { TransactionsProvider } from './hooks/useTransactions';
+import { useState } from 'react';
 
 Modal.setAppElement('#root')
 
 export function App() {
   
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
   return (
-    <TransactionsProvider>
-      <BrowserRouter>
-        <Routes />   
-      </BrowserRouter>
-    </TransactionsProvider>
+    <>
+      { isLoggedIn ? <Outlet /> : <App />}
+    </>
   );
 }

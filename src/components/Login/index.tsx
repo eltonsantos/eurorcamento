@@ -17,8 +17,8 @@ export function Login() {
   const handleLogin = async (event: FormEvent) => {
     event.preventDefault();
     try {
-      const user = await signInWithEmailAndPassword(auth, email, password)
-      console.log("User: " + user)
+      await signInWithEmailAndPassword(auth, email, password)
+      console.log("User: " + { auth, email, password })
       setIsLoggedIn(true);
       navigate('/transactions')
     }

@@ -1,20 +1,19 @@
-import { FormEvent } from "react";
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { signOut } from "firebase/auth";
+import { auth } from '../../services/firebaseconfig'
 import * as S from "./styles"
 
 export function Menu() {
 
   const navigate = useNavigate();
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  function logout(event: FormEvent) {
-      event.preventDefault();
-      console.log('Logout');
-
-      // CLEAR DATA FROM STORAGE
-      localStorage.removeItem('@eurorcamento');
-      sessionStorage.removeItem('@eurorcamento');
-
-      navigate("/");
+  async function logout() {
+    await signOut(auth);
+    console.log(auth)
+    navigate('/')
+    setIsLoggedIn(false);
   }
 
   return (

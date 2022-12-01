@@ -92,6 +92,16 @@ export const Container = styled.div`
     margin-bottom: 2rem;
   }
 
+  .error {
+    background-color: var(--red);
+    color: #eee;
+    font-weight: bold;
+    text-transform: uppercase;
+    border-radius: 0.25rem;
+    padding: 1rem;
+    align-items: center;
+    justify-content: center;
+  }
 
   .hidden {
     border: 0;

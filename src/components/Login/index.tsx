@@ -11,20 +11,25 @@ export function Login() {
   const navigate = useNavigate()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [error, setError] = useState(false)
 
-  async function handleLogin(event: FormEvent) {
+  const handleLogin = async (event: FormEvent) => {
     event.preventDefault();
-
-    await signInWithEmailAndPassword(auth, email, password)
-      .then(() => {
-        console.log("Entrou aqui")
-        navigate('/transactions')
-      })
-      .catch((error) => {
-        setError(true);
-        console.log("Error é: " + error)
-      });
+    try {
+      const user = await signInWithEmailAndPassword(auth, email, password)
+      console.log("User: " + user)
+      navigate('/transactions')
+      setIsLoggedIn(true);
+    }
+    catch (error) {
+      setError(true)
+      if (error instanceof Error) {
+        console.log(error.message);
+      } else {
+        console.log('Unexpected error', error);
+      }
+    }
   }
 
   return (
@@ -61,8 +66,8 @@ export function Login() {
           <div className="form-field">
             <input type="submit" value="Entrar" />
           </div>
-{/* 
-          {error && <span>Wrong email or password!</span>} */}
+ 
+          { error && <span className="form-field error">Wrong email or password!</span> }
           
         </form>
       </div>

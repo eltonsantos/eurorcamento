@@ -54,6 +54,8 @@ createServer({
       const id = request.params.id // Vejo que ta sendo chamada, mas não acho que esteja fazendo nada
       return schema.find('transaction', id)?.destroy() // Não entendi por que fui obrigado a deixar o opcional ? Como por outra forma?
     })
+
+    this.passthrough('https://identitytoolkit.googleapis.com/**')
   }
 })
 

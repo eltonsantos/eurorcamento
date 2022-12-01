@@ -18,8 +18,7 @@ Modal.setAppElement('#root')
 export function App() {
 
   const [isNewTransactionModalOpen, setIsNewTransactionModalOpen] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-
+  
   function handleOpenNewTransactionModal() {
     setIsNewTransactionModalOpen(true)
   }
@@ -32,30 +31,27 @@ export function App() {
     <TransactionsProvider>
       <BrowserRouter>
         <Routes>
-          {isLoggedIn ? (
-            <Route path="/" element={
-              <>
-                <Login />
-                <GlobalStyleLogin />
-              </>
-            } />
-          ) : (
-            <Route path="/transactions" element={
-              <>
-                <Menu />
-                <Header
-                  onOpenNewTransactionModal={handleOpenNewTransactionModal}
-                />
-                <Dashboard />
-                <NewTransactionModal
-                  isOpen={isNewTransactionModalOpen}
-                  onRequestClose={handleCloseNewTransactionModal}
-                />
-                <Footer />
-                <GlobalStyle />
-              </>
-            } />
-          )}
+          <Route path="/" element={
+            <>
+              <Login />
+              <GlobalStyleLogin />
+            </>
+          } />
+          <Route path="/transactions" element={
+            <>
+              <Menu />
+              <Header
+                onOpenNewTransactionModal={handleOpenNewTransactionModal}
+              />
+              <Dashboard />
+              <NewTransactionModal
+                isOpen={isNewTransactionModalOpen}
+                onRequestClose={handleCloseNewTransactionModal}
+              />
+              <Footer />
+              <GlobalStyle />
+            </>
+          } />
         </Routes>
       </BrowserRouter>
     </TransactionsProvider>

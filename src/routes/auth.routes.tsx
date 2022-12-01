@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { Route } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import { Dashboard } from '../components/Dashboard';
 import { Footer } from '../components/Footer';
 import { Header } from '../components/Header';
@@ -8,7 +8,6 @@ import { Menu } from '../components/Menu';
 import { NewTransactionModal } from '../components/NewTransactionModal';
 
 import { GlobalStyle } from '../styles/global';
-
 
 const AuthRoutes = () => {
   
@@ -22,7 +21,7 @@ const AuthRoutes = () => {
     setIsNewTransactionModalOpen(false)
   }
   return (
-    <>
+    <Routes>
       <Route path="/transactions" element={
         <>
           <Menu />
@@ -33,7 +32,7 @@ const AuthRoutes = () => {
           <GlobalStyle />
         </>
       } />
-    </>
+    </Routes>
   )
 }
 

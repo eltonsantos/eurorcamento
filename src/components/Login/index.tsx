@@ -19,8 +19,8 @@ export function Login() {
     try {
       const user = await signInWithEmailAndPassword(auth, email, password)
       console.log("User: " + user)
-      navigate('/transactions')
       setIsLoggedIn(true);
+      navigate('/transactions')
     }
     catch (error) {
       setError(true)

@@ -9,8 +9,9 @@ import { NewTransactionModal } from '../components/NewTransactionModal';
 
 import { GlobalStyle } from '../styles/global';
 
-const AuthRoutes = () => {
 
+const AuthRoutes = () => {
+  
   const [isNewTransactionModalOpen, setIsNewTransactionModalOpen] = useState(false);
   
   function handleOpenNewTransactionModal() {
@@ -20,19 +21,20 @@ const AuthRoutes = () => {
   function handleCloseNewTransactionModal() {
     setIsNewTransactionModalOpen(false)
   }
-  
-  <>
-    <Route path="/transactions" element={
-      <>
-        <Menu />
-        <Header onOpenNewTransactionModal={handleOpenNewTransactionModal} />
-        <Dashboard />
-        <NewTransactionModal isOpen={isNewTransactionModalOpen} onRequestClose={handleCloseNewTransactionModal} />
-        <Footer />
-        <GlobalStyle />
-      </>
-    } />
-  </>
+  return (
+    <>
+      <Route path="/transactions" element={
+        <>
+          <Menu />
+          <Header onOpenNewTransactionModal={handleOpenNewTransactionModal} />
+          <Dashboard />
+          <NewTransactionModal isOpen={isNewTransactionModalOpen} onRequestClose={handleCloseNewTransactionModal} />
+          <Footer />
+          <GlobalStyle />
+        </>
+      } />
+    </>
+  )
 }
 
 export default AuthRoutes;

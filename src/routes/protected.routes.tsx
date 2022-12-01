@@ -5,7 +5,7 @@ import Auth from './auth.routes';
 
 const ProtectedRoute = ({ children }: any) => {
 
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   return (
     isLoggedIn ? <Auth /> : <Navigate to="/" />

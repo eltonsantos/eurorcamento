@@ -1,6 +1,5 @@
 import { useState } from 'react';
 
-import { Route, Routes } from 'react-router-dom';
 import { Dashboard } from '../components/Dashboard';
 import { Footer } from '../components/Footer';
 import { Header } from '../components/Header';

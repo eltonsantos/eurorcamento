@@ -44,19 +44,17 @@ export function AuthProvider({ children }: AuthProviderProps) {
     }
   }
 
-  const handleLogout = async () => {
+  async function handleLogout() {
     await signOut(auth);
     //console.log(auth)
-    navigate('/')
     //localStorage.removeItem('@eurocamento:auth')
-    setCurrentUser(currentUser)
+    navigate('/')
     setIsLoggedIn(false);
   }
 
   useEffect(() => {
     onAuthStateChanged(auth, (currentUser) => {
-      if (currentUser) {
-        
+      if (currentUser) {    
         console.log('Logged')
         setCurrentUser(currentUser)
         console.log(currentUser.email)
@@ -64,7 +62,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
         console.log('Not logged')
       }
     })
-  }, [])
+  }, [currentUser])
 
   return (
     <AuthContext.Provider value={{ currentUser, isLoggedIn, handleLogin, handleLogout }}>

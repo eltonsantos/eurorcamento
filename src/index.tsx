@@ -4,6 +4,7 @@ import { createServer, Model } from 'miragejs';
 import { App } from './App';
 import { BrowserRouter } from 'react-router-dom';
 import { TransactionsProvider } from './hooks/useTransactions';
+import { AuthProvider } from './hooks/useAuth';
 
 createServer({
 
@@ -67,7 +68,9 @@ root.render(
   <React.StrictMode>
     <TransactionsProvider>
       <BrowserRouter>
-        <App />
+        <AuthProvider>
+          <App />
+        </AuthProvider>
       </BrowserRouter>
     </TransactionsProvider>
   </React.StrictMode>

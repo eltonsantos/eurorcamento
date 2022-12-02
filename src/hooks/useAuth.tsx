@@ -33,7 +33,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
   async function handleLogin(event: FormEvent) {
     event.preventDefault()
 
-    console.log("User: " + { auth, email, password })
+    console.log("User: " +  auth)
     try {
       await signInWithEmailAndPassword(auth, email, password)
       console.log(auth)
@@ -50,8 +50,8 @@ export function AuthProvider({ children }: AuthProviderProps) {
     }
   }
 
-  function handleLogout() {
-    signOut(auth);
+  const handleLogout = async () => {
+    await signOut(auth);
     console.log(auth)
     navigate('/')
     setIsLoggedIn(false);

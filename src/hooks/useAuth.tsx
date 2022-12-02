@@ -1,5 +1,5 @@
 import { signInWithEmailAndPassword, signOut } from "firebase/auth";
-import { createContext, FormEvent, ReactNode, useContext, useState } from "react"
+import { createContext, ReactNode, useContext, useState } from "react"
 import { useNavigate } from "react-router-dom";
 import { auth } from "../services/firebaseconfig";
 interface AuthProviderProps {
@@ -28,7 +28,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
   async function handleLogin({ email, password }: HandleLoginProps) {
     try {
       await signInWithEmailAndPassword(auth, email, password)
-      console.log("User: " + { auth, email, password })
+      console.log(auth)
       setIsLoggedIn(true)
       navigate('/transactions')
     } catch (error) {

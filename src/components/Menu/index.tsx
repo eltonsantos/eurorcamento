@@ -1,20 +1,10 @@
-import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { signOut } from "firebase/auth";
-import { auth } from '../../services/firebaseconfig'
+import { NavLink } from "react-router-dom";
 import * as S from "./styles"
+import { useAuth } from "../../hooks/useAuth";
 
 export function Menu() {
 
-  const navigate = useNavigate();
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-
-  async function logout() {
-    await signOut(auth);
-    console.log(auth)
-    navigate('/')
-    setIsLoggedIn(false);
-  }
+  const { handleLogout } = useAuth()
 
   return (
     <S.Container>
@@ -23,7 +13,7 @@ export function Menu() {
           <button>Alterar Tema</button>
         </li>
         <li>
-          <Link to="#" onClick={logout}>Sair</Link>
+        <button onClick={handleLogout}>Sair</button>
         </li>
       </ul>
     </S.Container>

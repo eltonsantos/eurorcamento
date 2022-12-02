@@ -1,36 +1,18 @@
+import { useState } from 'react';
+import { useAuth } from '../../hooks/useAuth';
+
 import { Lock, User } from 'phosphor-react';
-import { useNavigate } from 'react-router-dom';
-import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from '../../services/firebaseconfig'
-import { FormEvent, useState } from 'react';
 import logoImg from '../../assets/logo.svg';
+
 import * as S from "./styles";
 
 export function Login() {
 
-  const navigate = useNavigate()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [error, setError] = useState(false)
-
-  const handleLogin = async (event: FormEvent) => {
-    event.preventDefault();
-    try {
-      await signInWithEmailAndPassword(auth, email, password)
-      console.log("User: " + { auth, email, password })
-      setIsLoggedIn(true);
-      navigate('/transactions')
-    }
-    catch (error) {
-      setError(true)
-      if (error instanceof Error) {
-        console.log(error.message);
-      } else {
-        console.log('Unexpected error', error);
-      }
-    }
-  }
+  const { handleLogin } = useAuth()
 
   return (
     <S.Container>

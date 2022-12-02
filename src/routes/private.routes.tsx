@@ -1,9 +1,12 @@
-import { useState } from 'react';
 import { Navigate, Outlet } from 'react-router-dom';
+import { useAuth } from '../hooks/useAuth';
 
 const PrivateRoutes = () => {
 
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
+  // const { user } = useAuth()
+  // console.log("Auth: " + user)
+
+  const isLoggedIn = useAuth();
 
   return (
     isLoggedIn ? <Outlet /> : <Navigate to="/" />

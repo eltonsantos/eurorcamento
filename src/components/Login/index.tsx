@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { FormEvent, useState } from 'react';
 import { useAuth } from '../../hooks/useAuth';
 
 import { Lock, User } from 'phosphor-react';
@@ -10,16 +10,20 @@ export function Login() {
 
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [error, setError] = useState(false)
-  
+
   const { handleLogin } = useAuth()
+
+  async function handleSignIn(event: FormEvent) {
+    event.preventDefault()
+    await handleLogin({ email, password })
+  }
 
   return (
     <S.Container>
       <img src={logoImg} alt="€urorçamento" />
       <div className="login-item">
-        <form onSubmit={handleLogin} className="form form-login">
+        <form onSubmit={handleSignIn} className="form form-login">
           <div className="form-field">
             <label className="email" htmlFor="login-email">
               <User weight="fill" color="#fff" />
@@ -28,6 +32,7 @@ export function Login() {
               type="email"
               className="form-input"
               placeholder="Email"
+              value={email}
               onChange={(e) => {setEmail(e.target.value)}}
               required
             />
@@ -41,6 +46,7 @@ export function Login() {
               type="password"
               className="form-input"
               placeholder="Password"
+              value={password}
               onChange={(e) => {setPassword(e.target.value)}}
               required
             />

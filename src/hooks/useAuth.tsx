@@ -30,6 +30,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
       await signInWithEmailAndPassword(auth, email, password)
       console.log(auth)
       setIsLoggedIn(true)
+      localStorage.setItem('@eurocamento:auth', JSON.stringify(auth));
       navigate('/transactions')
     } catch (error) {
       setError(true)
@@ -45,6 +46,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
     await signOut(auth);
     console.log(auth)
     navigate('/')
+    localStorage.removeItem('@eurocamento:auth')
     setIsLoggedIn(false);
   }
 

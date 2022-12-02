@@ -3,10 +3,11 @@ import { useAuth } from '../hooks/useAuth';
 
 const PrivateRoutes = () => {
 
-  const { isLoggedIn } = useAuth();
+  //const { isLoggedIn } = useAuth();
+  const auth = localStorage.getItem('@eurocamento:auth')
 
   return (
-    isLoggedIn ? <Outlet /> : <Navigate to="/" />
+    auth ? <Outlet /> : <Navigate to="/" />
     
   )
 }

@@ -6,8 +6,8 @@ import outcomeImg from '../../assets/outcome.svg';
 import closeImg from '../../assets/close.svg';
 
 import * as S from './styles';
-import { useTransactions } from '../../hooks/useTransactions';
 
+import { useTransactions } from '../../hooks/useTransactions';
 interface Transaction {
   title: string;
   amount: number;
@@ -24,6 +24,8 @@ export function UpdateTransactionModal({ isOpen, onRequestClose }: UpdateTransac
   const { updateTransaction } = useTransactions()
   
   const [editingTransaction, setEditingTransaction] = useState<Transaction>()
+
+  console.log(editingTransaction)
   
   async function handleUpdateTransaction(event: FormEvent) {
     event.preventDefault()
@@ -45,11 +47,44 @@ export function UpdateTransactionModal({ isOpen, onRequestClose }: UpdateTransac
       >
         <img src={closeImg} alt="Fechar modal" />
       </button>
+
       <S.Container onSubmit={handleUpdateTransaction}>
 
         <h2>Atualizar transação</h2>
 
-        
+        <input
+          type="text"
+          placeholder="Título"
+        />
+
+        <input
+          type="number"
+          placeholder="Valor"
+        />
+
+        <S.TransactionTypeContainer>
+          <S.RadioBox
+            type="button"
+            // activeColor="green"
+          >
+            <img src={incomeImg} alt="Entrada" />
+            <span>Entrada</span>
+          </S.RadioBox>
+          <S.RadioBox
+            type="button"
+            // activeColor="red"
+          >
+            <img src={outcomeImg} alt="Saída" />
+            <span>Saída</span>
+          </S.RadioBox>
+        </S.TransactionTypeContainer>
+
+        <input
+          type="text"
+          placeholder="Categoria"
+        />
+
+        <button type="submit">Cadastrar</button>
       
       </S.Container>
     </Modal>

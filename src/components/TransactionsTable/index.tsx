@@ -10,7 +10,7 @@ export function TransactionsTable() {
 
   const [isUpdateTransactionModalOpen, setIsUpdateTransactionModalOpen] = useState(false);
 
-  function handleOpenUpdateTransactionModal() {
+  function handleOpenUpdateTransactionModal(id: number) {
     setIsUpdateTransactionModalOpen(true)
   }
 
@@ -54,8 +54,8 @@ export function TransactionsTable() {
                     <PencilSimple
                       size={20}
                       weight="fill"
-                      onClick={handleOpenUpdateTransactionModal}
-                      // onClick={() => updateTransaction(transaction.id)}
+                      onClick={() => handleOpenUpdateTransactionModal(transaction.id)}
+                      //onClick={() => updateTransaction(transaction.id)}
                     />
                     <TrashSimple
                       size={20}

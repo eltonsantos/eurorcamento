@@ -9,7 +9,6 @@ const PrivateRoutes = () => {
 
   return currentUser ? <Outlet /> : <Navigate to="/" />
     
-  
 }
 
 export default PrivateRoutes;

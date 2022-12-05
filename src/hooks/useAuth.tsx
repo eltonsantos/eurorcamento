@@ -45,17 +45,19 @@ export function AuthProvider({ children }: AuthProviderProps) {
   }
 
   async function handleLogout() {
-    await signOut(auth);
+    await signOut(auth)
     //console.log(auth)
     //localStorage.removeItem('@eurocamento:auth')
+    setIsLoggedIn(false)
+    setCurrentUser(null)
     navigate('/')
-    setIsLoggedIn(false);
   }
 
   useEffect(() => {
     onAuthStateChanged(auth, (currentUser) => {
       if (currentUser) {    
         console.log('Logged')
+        //setIsLoggedIn(true)
         setCurrentUser(currentUser)
         console.log(currentUser.email)
       } else {

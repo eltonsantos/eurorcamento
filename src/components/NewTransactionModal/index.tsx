@@ -1,5 +1,7 @@
 import { FormEvent, useState } from 'react';
 import { useTransactions } from '../../hooks/useTransactions';
+import { realTimeDatabase } from '../../services/firebaseconfig'
+import { onValue, push, ref, set } from 'firebase/database'
 
 import Modal from 'react-modal';
 
@@ -25,11 +27,19 @@ export function NewTransactionModal({ isOpen, onRequestClose }: NewTransactionMo
 
   async function handleCreateNewTransaction(event: FormEvent) {
     event.preventDefault();
-    await createTransaction({
-      title,
-      amount,
-      category,
-      type
+    // await createTransaction({
+    //   title,
+    //   amount,
+    //   category,
+    //   type
+    // })
+
+    const transactionsRef = ref(realTimeDatabase, 'transactions')
+    push(transactionsRef, {title, amount, category, type, createdAt: new Date().toString()})
+    .then(() => {
+      alert('Salvo')
+    }).catch(() => {
+      alert('Deu errado')
     })
 
     setTitle('')

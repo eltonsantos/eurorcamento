@@ -24,11 +24,8 @@ export function TransactionsTable() {
   
   const transactionsRef = ref(realTimeDatabase, 'transactions')
 
-  useEffect(() => {
-    
+  useEffect(() => { 
     onValue(transactionsRef, snapshot => {
-      
-
       const data = snapshot.val()
       console.log(data)
       if (!data) return

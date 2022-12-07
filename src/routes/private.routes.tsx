@@ -1,4 +1,5 @@
 import { Navigate, Outlet } from 'react-router-dom';
+import { Loading } from '../components/Loading';
 import { useAuth } from '../hooks/useAuth';
 
 const PrivateRoutes = () => {
@@ -7,7 +8,9 @@ const PrivateRoutes = () => {
 
   console.log(currentUser)
 
-  return currentUser ? <Outlet /> : <h1>Carregando...</h1>
+  // return currentUser ? <Outlet /> : <Navigate to="/" />
+  //return currentUser ? <Outlet /> : <h1>Carregando...</h1>
+  return currentUser ? <Outlet /> : <Loading />
     
 }
 

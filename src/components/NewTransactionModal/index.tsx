@@ -37,9 +37,9 @@ export function NewTransactionModal({ isOpen, onRequestClose }: NewTransactionMo
     const transactionsRef = ref(realTimeDatabase, 'transactions')
     push(transactionsRef, {title, amount, category, type, createdAt: new Date().toString()})
     .then(() => {
-      alert('Salvo')
-    }).catch(() => {
-      alert('Deu errado')
+      console.log("Salvo no firebase")
+    }).catch((error) => {
+      console.log(error)
     })
 
     setTitle('')
@@ -112,6 +112,7 @@ export function NewTransactionModal({ isOpen, onRequestClose }: NewTransactionMo
         />
 
         <button type="submit">Cadastrar</button>
+
       </S.Container>
     </Modal>
   )

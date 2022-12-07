@@ -4,13 +4,17 @@ import { useAuth } from '../hooks/useAuth';
 
 const PrivateRoutes = () => {
 
-  const {currentUser} = useAuth();
+  const {currentUser, isLoading } = useAuth();
 
   console.log(currentUser)
 
-  // return currentUser ? <Outlet /> : <Navigate to="/" />
+  if (isLoading) {
+    return <Loading />
+  }
+  
+  return currentUser ? <Outlet /> : <Navigate to="/" />
   //return currentUser ? <Outlet /> : <h1>Carregando...</h1>
-  return currentUser ? <Outlet /> : <Loading />
+  // return currentUser ? <Outlet /> : <Loading />
     
 }
 

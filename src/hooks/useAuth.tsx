@@ -16,6 +16,7 @@ interface AuthContextData {
   handleLogout: () => void;
   isLoggedIn: boolean;
   currentUser: any | null;
+  isLoading: boolean;
 }
 
 const AuthContext = createContext<AuthContextData>({} as AuthContextData)
@@ -25,6 +26,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
   const navigate = useNavigate()
   const [currentUser,setCurrentUser] = useState<any | null>(null);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(false)
 
   async function handleLogin({ email, password }: HandleLoginProps) {
@@ -59,15 +61,17 @@ export function AuthProvider({ children }: AuthProviderProps) {
         console.log('Logged')
         //setIsLoggedIn(true)
         setCurrentUser(currentUser)
+        setIsLoading(false)
         console.log(currentUser.email)
       } else {
         console.log('Not logged')
+        setIsLoading(false)
       }
     })
   }, [currentUser])
 
   return (
-    <AuthContext.Provider value={{ currentUser, isLoggedIn, handleLogin, handleLogout }}>
+    <AuthContext.Provider value={{ currentUser, isLoggedIn, isLoading, handleLogin, handleLogout }}>
       { children }
     </AuthContext.Provider>
   )

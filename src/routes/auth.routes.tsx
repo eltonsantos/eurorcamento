@@ -24,7 +24,9 @@ const AuthRoutes = () => {
       <Menu />
       <Header onOpenNewTransactionModal={handleOpenNewTransactionModal} />
       <Dashboard />
-      <NewTransactionModal isOpen={isNewTransactionModalOpen} onRequestClose={handleCloseNewTransactionModal} />
+      <NewTransactionModal
+        isOpen={isNewTransactionModalOpen}
+        onRequestClose={handleCloseNewTransactionModal} />
       <Footer />
       <GlobalStyle />
     </>

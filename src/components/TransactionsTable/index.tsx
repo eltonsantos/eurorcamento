@@ -6,15 +6,15 @@ import * as S from './styles';
 
 export function TransactionsTable() {
 
-  const { transactions, updateTransaction, removeTransaction, isLoading } = useTransactions()
+  const { transactions, removeTransaction, isLoading } = useTransactions()
 
   const [isUpdateTransactionModalOpen, setIsUpdateTransactionModalOpen] = useState(false);
 
-  function handleOpenUpdateTransactionModal(id: string) {
+  function onOpenUpdateTransactionModal(id: string) {
     setIsUpdateTransactionModalOpen(true)
   }
 
-  function handleCloseUpdateTransactionModal() {
+  function onCloseUpdateTransactionModal() {
     setIsUpdateTransactionModalOpen(false)
   }
 
@@ -54,14 +54,13 @@ export function TransactionsTable() {
                     <PencilSimple
                       size={20}
                       weight="fill"
-                      onClick={() => handleOpenUpdateTransactionModal(transaction.id)}
-                      //onClick={() => updateTransaction(transaction.id)}
+                      onClick={() => onOpenUpdateTransactionModal(transaction.id)}
                     />
                     <TrashSimple
                       size={20}
                       weight="fill"
                       color="red"
-                      onClick={() => removeTransaction(transaction.id)} // Por que não consegui passar somente o id?
+                      onClick={() => removeTransaction(transaction.id)}
                     />
                   </div>
                 </td>
@@ -73,7 +72,7 @@ export function TransactionsTable() {
 
       <UpdateTransactionModal
         isOpen={isUpdateTransactionModalOpen}
-        onRequestClose={handleCloseUpdateTransactionModal}
+        onRequestClose={onCloseUpdateTransactionModal}
       />
 
     </S.Container>

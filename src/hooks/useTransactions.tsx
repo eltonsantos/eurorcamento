@@ -1,7 +1,6 @@
 import { createContext, useEffect, useState, ReactNode, useContext } from 'react'
 import { realTimeDatabase } from '../services/firebaseconfig'
-import { onValue, push, ref, remove, set } from 'firebase/database'
-import { api } from '../services/api';
+import { onValue, push, ref, remove, update } from 'firebase/database'
 
 interface Transaction {
   id: string;
@@ -21,7 +20,7 @@ interface TransactionsProviderProps {
 interface TransactionsContextData {
   transactions: Transaction[];
   createTransaction: (transaction: TransactionInput) => Promise<void>;
-  removeTransaction: (id: string) => void;
+  removeTransaction: (id: string) => Promise<void>;
   updateTransaction: (id: string) => Promise<void>;
   isLoading: boolean;
 }
@@ -58,19 +57,21 @@ export function TransactionsProvider({ children }: TransactionsProviderProps) {
     }).catch((error) => {
       console.log(error)
     })
-    
   }
 
   async function updateTransaction(id: string) {
     // Como criar essa função?
     try {
-      const response = await api.put(`/transactions/${id}`, {
-        ...transactions,
-      })
-      const updateTransaction = transactions.map(transaction => transaction.id === id ? { ...response.data } : transaction)
+      await update(ref(realTimeDatabase, `/${id}`), {
+        transactions,
+        id,
+      });
+      // const response = await api.put(`/transactions/${id}`, {
+      //   ...transactions,
+      // })
+      // const updateTransaction = transactions.map(transaction => transaction.id === id ? { ...response.data } : transaction)
 
-      setTransactions(updateTransaction)
-
+      // setTransactions(updateTransaction)
     } catch (err) {
       console.log(err);
     }
@@ -78,8 +79,7 @@ export function TransactionsProvider({ children }: TransactionsProviderProps) {
   
   async function removeTransaction(id: string) {
     try {
-      const filteredTransaction = await remove(ref(realTimeDatabase, `/transactions/${id}`))
-      console.log(filteredTransaction)
+      await remove(ref(realTimeDatabase, `/transactions/${id}`))
     } catch (err) {
       console.log(err);
     }

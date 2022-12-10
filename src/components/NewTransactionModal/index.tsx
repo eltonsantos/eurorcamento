@@ -1,7 +1,5 @@
 import { FormEvent, useState } from 'react';
 import { useTransactions } from '../../hooks/useTransactions';
-import { realTimeDatabase } from '../../services/firebaseconfig'
-import { onValue, push, ref, set } from 'firebase/database'
 
 import Modal from 'react-modal';
 

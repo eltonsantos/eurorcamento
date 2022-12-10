@@ -16,21 +16,26 @@ interface Transaction {
 }
 interface UpdateTransactionModalProps {
   isOpen: boolean;
+
   onRequestClose: () => void;
 }
 
 export function UpdateTransactionModal({ isOpen, onRequestClose }: UpdateTransactionModalProps) {
 
   const { updateTransaction } = useTransactions()
+
+  const [title, setTitle] = useState('');
+  const [amount, setAmount] = useState(0);
+  const [category, setCategory] = useState('');
+  const [type, setType] = useState('deposit');
   
   const [editingTransaction, setEditingTransaction] = useState<Transaction>()
 
   console.log(editingTransaction)
   
   async function handleUpdateTransaction(event: FormEvent) {
-    event.preventDefault()
-    setEditingTransaction(editingTransaction)
-    onRequestClose()
+    event.preventDefault();
+    console.log(editingTransaction)
   }
 
   return (
@@ -55,6 +60,8 @@ export function UpdateTransactionModal({ isOpen, onRequestClose }: UpdateTransac
         <input
           type="text"
           placeholder="Título"
+          value={title}
+          onChange={event => setTitle(event.target.value)}
         />
 
         <input
@@ -84,7 +91,7 @@ export function UpdateTransactionModal({ isOpen, onRequestClose }: UpdateTransac
           placeholder="Categoria"
         />
 
-        <button type="submit">Cadastrar</button>
+        <button type="submit">Atualizar</button>
       
       </S.Container>
     </Modal>

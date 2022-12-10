@@ -1,8 +1,10 @@
 import { createContext, useEffect, useState, ReactNode, useContext } from 'react'
+import { realTimeDatabase } from '../services/firebaseconfig'
+import { onValue, push, ref, remove, set } from 'firebase/database'
 import { api } from '../services/api';
 
 interface Transaction {
-  id: number;
+  id: string;
   title: string;
   amount: number;
   type: string;
@@ -19,8 +21,8 @@ interface TransactionsProviderProps {
 interface TransactionsContextData {
   transactions: Transaction[];
   createTransaction: (transaction: TransactionInput) => Promise<void>;
-  removeTransaction: (id: number) => Promise<void>;
-  updateTransaction: (id: number) => Promise<void>;
+  removeTransaction: (id: string) => void;
+  updateTransaction: (id: string) => Promise<void>;
   isLoading: boolean;
 }
 
@@ -29,24 +31,37 @@ const TransactionsContext = createContext<TransactionsContextData>({} as Transac
 export function TransactionsProvider({ children }: TransactionsProviderProps) {
  
   const [transactions, setTransactions] = useState<Transaction[]>([]);
-  const [isLoading, setIsLoading] = useState(true); // Como usar o isLoading?
+  const [isLoading, setIsLoading] = useState(true);
+
+  const transactionsRef = ref(realTimeDatabase, 'transactions')
 
   useEffect(() => {
-    api.get('transactions').then(response => setTransactions(response.data.transactions))
-    setIsLoading(false)
+    onValue(transactionsRef, snapshot => {
+      const data = snapshot.val()
+      console.log(data)
+      if (!data) return
+      const keys = data && Object.keys(data)
+      const treatData = keys?.map((key: any) => {
+        return { ...data[key], id: key }
+      })
+      setTransactions(treatData)
+      setIsLoading(false)
+    })
   }, [])
 
   async function createTransaction(transactionInput: TransactionInput) {
-    const response = await api.post('/transactions', {
+    push(transactionsRef, {
       ...transactionInput,
-      createdAt: new Date()
-    });
+      createdAt: new Date().toString()})
+    .then(() => {
+      console.log("Salvo no firebase")
+    }).catch((error) => {
+      console.log(error)
+    })
     
-    const { transaction } = response.data
-    setTransactions([...transactions, transaction])
   }
 
-  async function updateTransaction(id: number) {
+  async function updateTransaction(id: string) {
     // Como criar essa função?
     try {
       const response = await api.put(`/transactions/${id}`, {
@@ -61,13 +76,10 @@ export function TransactionsProvider({ children }: TransactionsProviderProps) {
     }
   }
   
-  // Vejo meu async/await não servindo pra nada, rsrs
-  async function removeTransaction(id: number) {
+  async function removeTransaction(id: string) {
     try {
-      await api.delete(`/transactions/${id}`); // Não entendi por que não serviu de nada
-      const filteredTransaction = transactions.filter(transaction => transaction.id !== id)
+      const filteredTransaction = await remove(ref(realTimeDatabase, `/transactions/${id}`))
       console.log(filteredTransaction)
-      setTransactions(filteredTransaction)
     } catch (err) {
       console.log(err);
     }

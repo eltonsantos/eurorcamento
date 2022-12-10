@@ -27,19 +27,11 @@ export function NewTransactionModal({ isOpen, onRequestClose }: NewTransactionMo
 
   async function handleCreateNewTransaction(event: FormEvent) {
     event.preventDefault();
-    // await createTransaction({
-    //   title,
-    //   amount,
-    //   category,
-    //   type
-    // })
-
-    const transactionsRef = ref(realTimeDatabase, 'transactions')
-    push(transactionsRef, {title, amount, category, type, createdAt: new Date().toString()})
-    .then(() => {
-      console.log("Salvo no firebase")
-    }).catch((error) => {
-      console.log(error)
+    await createTransaction({
+      title,
+      amount,
+      category,
+      type
     })
 
     setTitle('')

@@ -1,6 +1,7 @@
 import { createContext, useEffect, useState, ReactNode, useContext } from 'react'
 import { realTimeDatabase } from '../services/firebaseconfig'
 import { onValue, push, ref, remove, update } from 'firebase/database'
+import { toast } from 'react-toastify'
 
 interface Transaction {
   id: string;
@@ -53,8 +54,10 @@ export function TransactionsProvider({ children }: TransactionsProviderProps) {
       ...transactionInput,
       createdAt: new Date().toString()})
     .then(() => {
+      toast.success('Salvo com sucesso');
       console.log("Salvo no firebase")
     }).catch((error) => {
+      toast.error('Ocorreu um erro ao salvar');
       console.log(error)
     })
   }
@@ -80,7 +83,9 @@ export function TransactionsProvider({ children }: TransactionsProviderProps) {
   async function removeTransaction(id: string) {
     try {
       await remove(ref(realTimeDatabase, `/transactions/${id}`))
+      toast.success('Removido com sucesso');
     } catch (err) {
+      toast.error('Ocorreu um erro ao remover');
       console.log(err);
     }
   }

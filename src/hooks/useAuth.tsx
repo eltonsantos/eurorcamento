@@ -2,6 +2,8 @@ import { onAuthStateChanged, signInWithEmailAndPassword, signOut } from "firebas
 import { createContext, ReactNode, useContext, useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom";
 import { auth } from "../services/firebaseconfig";
+
+import { toast } from 'react-toastify'
 interface AuthProviderProps {
   children: ReactNode;
 }
@@ -36,6 +38,8 @@ export function AuthProvider({ children }: AuthProviderProps) {
       setIsLoggedIn(true)
       //localStorage.setItem('@eurocamento:auth', JSON.stringify(auth));
       navigate('/transactions')
+
+      toast.success('Seja bem vindo ao EurOrçamento');
     } catch (error) {
       setError(true)
       if (error instanceof Error) {

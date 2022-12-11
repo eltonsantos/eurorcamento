@@ -69,13 +69,10 @@ export function TransactionsProvider({ children }: TransactionsProviderProps) {
         transactions,
         id,
       });
-      // const response = await api.put(`/transactions/${id}`, {
-      //   ...transactions,
-      // })
-      // const updateTransaction = transactions.map(transaction => transaction.id === id ? { ...response.data } : transaction)
+      toast.success('Atualizado com sucesso');
 
-      // setTransactions(updateTransaction)
     } catch (err) {
+      toast.error('Ocorreu um erro ao atualizar');
       console.log(err);
     }
   }

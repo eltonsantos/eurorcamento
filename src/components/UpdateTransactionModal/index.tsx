@@ -16,7 +16,7 @@ interface Transaction {
 }
 interface UpdateTransactionModalProps {
   isOpen: boolean;
-
+  transaction: string;
   onRequestClose: () => void;
 }
 
@@ -35,7 +35,7 @@ export function UpdateTransactionModal({ isOpen, onRequestClose }: UpdateTransac
   
   async function handleUpdateTransaction(event: FormEvent) {
     event.preventDefault();
-    console.log(editingTransaction)
+    setEditingTransaction(editingTransaction)
   }
 
   return (

@@ -7,6 +7,7 @@ import * as S from './styles';
 export function TransactionsTable() {
 
   const { transactions, removeTransaction, isLoading } = useTransactions()
+  const [transaction, settransaction] = useState('')
 
   const [isUpdateTransactionModalOpen, setIsUpdateTransactionModalOpen] = useState(false);
 
@@ -73,6 +74,7 @@ export function TransactionsTable() {
       <UpdateTransactionModal
         isOpen={isUpdateTransactionModalOpen}
         onRequestClose={onCloseUpdateTransactionModal}
+        transaction={transaction}
       />
 
     </S.Container>

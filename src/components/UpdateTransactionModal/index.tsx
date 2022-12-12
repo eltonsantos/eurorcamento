@@ -8,19 +8,23 @@ import closeImg from '../../assets/close.svg';
 import * as S from './styles';
 
 import { useTransactions } from '../../hooks/useTransactions';
+
 interface Transaction {
+  id: string;
   title: string;
   amount: number;
   type: string;
   category: string;
+  createdAt: string;
 }
+
 interface UpdateTransactionModalProps {
   isOpen: boolean;
-  transaction: string;
+  editingTransaction: Transaction | undefined;
   onRequestClose: () => void;
 }
 
-export function UpdateTransactionModal({ isOpen, onRequestClose }: UpdateTransactionModalProps) {
+export function UpdateTransactionModal({ isOpen, onRequestClose, editingTransaction }: UpdateTransactionModalProps) {
 
   const { updateTransaction } = useTransactions()
 
@@ -28,15 +32,14 @@ export function UpdateTransactionModal({ isOpen, onRequestClose }: UpdateTransac
   const [amount, setAmount] = useState(0);
   const [category, setCategory] = useState('');
   const [type, setType] = useState('deposit');
-  
-  const [editingTransaction, setEditingTransaction] = useState<Transaction>()
 
-  console.log(editingTransaction)
+  //console.log(editingTransaction)
   
   async function handleUpdateTransaction(event: FormEvent) {
     event.preventDefault();
+    console.log("UpdID" + editingTransaction)
     // await updateTransaction()
-    setEditingTransaction(editingTransaction)
+    //setEditingTransaction(editingTransaction)
   }
 
   return (
@@ -61,26 +64,32 @@ export function UpdateTransactionModal({ isOpen, onRequestClose }: UpdateTransac
         <input
           type="text"
           placeholder="Título"
-          value={title}
-          onChange={event => setTitle(event.target.value)}
+          value={editingTransaction?.title}
+          onChange={e => setTitle(e.target.value)}
         />
 
         <input
           type="number"
           placeholder="Valor"
+          value={editingTransaction?.amount}
+          onChange={e => setTitle(e.target.value)}
         />
 
         <S.TransactionTypeContainer>
           <S.RadioBox
             type="button"
-            // activeColor="green"
+            isActive={editingTransaction?.type === 'deposit'}
+            activeColor="green"
+            onClick={() => {setType('deposit')}}
           >
             <img src={incomeImg} alt="Entrada" />
             <span>Entrada</span>
           </S.RadioBox>
           <S.RadioBox
             type="button"
-            // activeColor="red"
+            isActive={editingTransaction?.type === 'withdraw'}
+            activeColor="red"
+            onClick={() => {setType('withdraw')}}
           >
             <img src={outcomeImg} alt="Saída" />
             <span>Saída</span>
@@ -90,6 +99,8 @@ export function UpdateTransactionModal({ isOpen, onRequestClose }: UpdateTransac
         <input
           type="text"
           placeholder="Categoria"
+          value={editingTransaction?.category}
+          onChange={e => setTitle(e.target.value)}
         />
 
         <button type="submit">Atualizar</button>

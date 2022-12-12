@@ -4,14 +4,27 @@ import { useTransactions } from '../../hooks/useTransactions';
 import { UpdateTransactionModal } from '../UpdateTransactionModal';
 import * as S from './styles';
 
+interface Transaction {
+  id: string;
+  title: string;
+  amount: number;
+  type: string;
+  category: string;
+  createdAt: string;
+}
+
 export function TransactionsTable() {
 
   const { transactions, removeTransaction, isLoading } = useTransactions()
-  const [transaction, settransaction] = useState('')
 
-  const [isUpdateTransactionModalOpen, setIsUpdateTransactionModalOpen] = useState(false);
+  const [isUpdateTransactionModalOpen, setIsUpdateTransactionModalOpen] = useState(false)
 
-  function onOpenUpdateTransactionModal(id: string) {
+  const [editingTransaction, setEditingTransaction] = useState<Transaction>()
+
+  function onOpenUpdateTransactionModal(transaction: Transaction) {
+    setEditingTransaction(transaction)
+    console.log("Editing: " + transaction)
+    console.log("ID: " + transaction)
     setIsUpdateTransactionModalOpen(true)
   }
 
@@ -33,7 +46,7 @@ export function TransactionsTable() {
         </thead>
         <tbody>
 
-          {transactions.length ? transactions.map((transaction: any) => {
+          {transactions.length ? transactions.map((transaction: Transaction) => {
             // Como usar o isLoading que está em outro componente aqui para carregar somente apos a api ser carregada?
             return (
               <tr key={transaction.id}>
@@ -55,7 +68,7 @@ export function TransactionsTable() {
                     <PencilSimple
                       size={20}
                       weight="fill"
-                      onClick={() => onOpenUpdateTransactionModal(transaction.id)}
+                      onClick={() => onOpenUpdateTransactionModal(transaction)}
                     />
                     <TrashSimple
                       size={20}
@@ -74,7 +87,7 @@ export function TransactionsTable() {
       <UpdateTransactionModal
         isOpen={isUpdateTransactionModalOpen}
         onRequestClose={onCloseUpdateTransactionModal}
-        transaction={transaction}
+        editingTransaction={editingTransaction}
       />
 
     </S.Container>

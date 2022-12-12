@@ -38,7 +38,7 @@ export function TransactionsProvider({ children }: TransactionsProviderProps) {
   useEffect(() => {
     onValue(transactionsRef, snapshot => {
       const data = snapshot.val()
-      console.log(data)
+      //console.log(data)
       if (!data) return
       const keys = data && Object.keys(data)
       const treatData = keys?.map((key: any) => {
@@ -80,6 +80,7 @@ export function TransactionsProvider({ children }: TransactionsProviderProps) {
   async function removeTransaction(id: string) {
     try {
       await remove(ref(realTimeDatabase, `/transactions/${id}`))
+      setTransactions(prev => prev.filter((transaction) => transaction.id !== id));
       toast.success('Removido com sucesso');
     } catch (err) {
       toast.error('Ocorreu um erro ao remover');

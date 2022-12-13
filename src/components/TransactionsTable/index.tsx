@@ -16,15 +16,11 @@ interface Transaction {
 export function TransactionsTable() {
 
   const { transactions, removeTransaction, isLoading } = useTransactions()
-
   const [isUpdateTransactionModalOpen, setIsUpdateTransactionModalOpen] = useState(false)
-
   const [editingTransaction, setEditingTransaction] = useState<Transaction>()
 
   function onOpenUpdateTransactionModal(transaction: Transaction) {
     setEditingTransaction(transaction)
-    console.log("Editing: " + transaction)
-    console.log("ID: " + transaction)
     setIsUpdateTransactionModalOpen(true)
   }
 
@@ -37,6 +33,7 @@ export function TransactionsTable() {
       <table>
         <thead>
           <tr>
+            <th>#ID</th>
             <th>Título</th>
             <th>Valor</th>
             <th>Categoria</th>
@@ -50,6 +47,7 @@ export function TransactionsTable() {
             // Como usar o isLoading que está em outro componente aqui para carregar somente apos a api ser carregada?
             return (
               <tr key={transaction.id}>
+                <td>{transaction.id}</td>
                 <td>{transaction.title}</td>
                 <td className={transaction.type}>
                   {new Intl.NumberFormat('pt-BR', {
@@ -80,7 +78,7 @@ export function TransactionsTable() {
                 </td>
               </tr>
             )
-          }) : <tr><td colSpan={5} align="center">Não há transações cadastradas</td></tr>}
+          }) : <tr><td colSpan={6} align="center">Não há transações cadastradas</td></tr>}
         </tbody>
       </table>
 
@@ -91,6 +89,5 @@ export function TransactionsTable() {
       />
 
     </S.Container>
-
   )
 }

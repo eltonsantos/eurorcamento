@@ -21,8 +21,8 @@ interface TransactionsProviderProps {
 interface TransactionsContextData {
   transactions: Transaction[];
   createTransaction: (transaction: TransactionInput) => Promise<void>;
+  updateTransaction: (transaction: Transaction) => Promise<void>;
   removeTransaction: (id: string) => Promise<void>;
-  updateTransaction: (id: string) => Promise<void>;
   isLoading: boolean;
 }
 
@@ -32,6 +32,7 @@ export function TransactionsProvider({ children }: TransactionsProviderProps) {
  
   const [transactions, setTransactions] = useState<Transaction[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [transactionUpdate, setTransactionUpdate] = useState<Transaction | null>(null);
 
   const transactionsRef = ref(realTimeDatabase, 'transactions')
 
@@ -50,42 +51,47 @@ export function TransactionsProvider({ children }: TransactionsProviderProps) {
   }, [])
 
   async function createTransaction(transactionInput: TransactionInput) {
-    push(transactionsRef, {
+    await push(transactionsRef, {
       ...transactionInput,
       createdAt: new Date().toString()})
     .then(() => {
-      toast.success('Salvo com sucesso');
-      console.log("Salvo no firebase")
+      toast.success('Salva com sucesso');
+      console.log("Salva no firebase")
     }).catch((error) => {
       toast.error('Ocorreu um erro ao salvar');
       console.log(error)
     })
   }
 
-  async function updateTransaction(id: string) {
-    // Como criar essa função?
-    try {
-      await update(ref(realTimeDatabase, `/${id}`), {
-        transactions,
-        id,
+  async function updateTransaction(transaction: Transaction) {
+    await update(transactionsRef, {
+      transactionUpdate
+    }).then(() => {
+      const updatedTransaction = transactions.map((transaction) => {
+        return transaction.id === transactionUpdate?.id ? transactionUpdate : transaction
       });
-      toast.success('Atualizado com sucesso');
+  
+      setTransactions(updatedTransaction)
+      toast.success('Atualizada com sucesso')
+      console.log('Atualizada no firebase');
 
-    } catch (err) {
-      toast.error('Ocorreu um erro ao atualizar');
+    }).catch((err) => {
+      toast.error('Ocorreu um erro ao atualizar')
       console.log(err);
-    }
+    })
   }
   
   async function removeTransaction(id: string) {
-    try {
-      await remove(ref(realTimeDatabase, `/transactions/${id}`))
-      setTransactions(prev => prev.filter((transaction) => transaction.id !== id));
-      toast.success('Removido com sucesso');
-    } catch (err) {
-      toast.error('Ocorreu um erro ao remover');
-      console.log(err);
-    }
+    await remove(ref(realTimeDatabase, `/transactions/${id}`))
+      .then(() => {
+        setTransactions(prev => prev.filter((transaction) => transaction.id !== id))
+        toast.success('Removida com sucesso')
+        console.log("Removida no firebase")
+      })
+      .catch((err) => {
+        toast.error('Ocorreu um erro ao remover');
+        console.log(err);
+      })
   }
 
   return (

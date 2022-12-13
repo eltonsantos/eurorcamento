@@ -62,13 +62,12 @@ export function AuthProvider({ children }: AuthProviderProps) {
   useEffect(() => {
     onAuthStateChanged(auth, (currentUser) => {
       if (currentUser) {    
-        console.log('Logged')
+        //console.log('Logged')
         //setIsLoggedIn(true)
         setCurrentUser(currentUser)
         setIsLoading(false)
-        console.log(currentUser.email)
       } else {
-        console.log('Not logged')
+        //console.log('Not logged')
         setIsLoading(false)
       }
     })

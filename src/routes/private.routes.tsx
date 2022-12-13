@@ -6,7 +6,7 @@ const PrivateRoutes = () => {
 
   const {currentUser, isLoading } = useAuth();
 
-  console.log(currentUser)
+  //console.log(currentUser)
 
   if (isLoading) {
     return <Loading />

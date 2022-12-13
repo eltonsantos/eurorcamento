@@ -28,44 +28,50 @@ export function UpdateTransactionModal({ isOpen, onRequestClose, editingTransact
 
   const { updateTransaction } = useTransactions()
 
-  const [title, setTitle] = useState(editingTransaction?.title);
-  const [amount, setAmount] = useState(editingTransaction?.amount);
-  const [category, setCategory] = useState(editingTransaction?.category);
-  const [type, setType] = useState(editingTransaction?.type);
+  const [id, setId] = useState('');
+  const [title, setTitle] = useState('');
+  const [amount, setAmount] = useState(0);
+  const [category, setCategory] = useState('');
+  const [type, setType] = useState('deposit');
 
-  // const [transaction, setTransaction] = useState({
-  //   title: editingTransaction?.title,
-  //   amount: editingTransaction?.amount,
-  //   type: editingTransaction?.type,
-  //   category: editingTransaction?.category
-  // })
-
-  // useEffect(() => {
-  //   setTransaction({
-  //     ...transaction,
-  //     title: editingTransaction?.title,
-  //     amount: editingTransaction?.amount,
-  //     type: editingTransaction?.type,
-  //     category: editingTransaction?.category
-  //   })
-  // },[editingTransaction])
-  
-  // async function handleUpdateTransaction(event: FormEvent) {
-  //   event.preventDefault();
-  //   await updateTransaction({...transaction})
-  //   setTransaction()
-  // }
+  useEffect(() => {
+    if (editingTransaction?.id) {
+      setId(editingTransaction.id)
+    }
+    if (editingTransaction?.title) {
+      setTitle(editingTransaction.title)
+    }
+    if (editingTransaction?.amount) {
+      setAmount(editingTransaction.amount)
+    }
+    if (editingTransaction?.type) {
+      setType(editingTransaction.type)
+    }
+    if (editingTransaction?.category) {
+      setCategory(editingTransaction.category)
+    }  
+  },[editingTransaction])
 
   async function handleUpdateTransaction(event: FormEvent) {
     event.preventDefault();
-  }
 
-  // const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
-  //   setTransaction({
-  //     ...transaction,
-  //     [e.target.name]: e.target.value
-  //   });
-  // }
+    await updateTransaction({
+      id,
+      title,
+      amount,
+      category,
+      type,
+      createdAt: String(new Date()),
+    })
+
+    console.log(id)
+    console.log(title)
+    console.log(amount)
+    console.log(category)
+    console.log(type)
+    
+    onRequestClose()
+  }
 
   return (
     <Modal
@@ -112,6 +118,7 @@ export function UpdateTransactionModal({ isOpen, onRequestClose, editingTransact
             <img src={incomeImg} alt="Entrada" />
             <span>Entrada</span>
           </S.RadioBox>
+          
           <S.RadioBox
             type="button"
             isActive={type === 'withdraw'}

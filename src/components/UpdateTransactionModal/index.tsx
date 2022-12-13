@@ -1,4 +1,4 @@
-import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
+import { FormEvent, useEffect, useState } from 'react';
 import Modal from 'react-modal';
 
 import incomeImg from '../../assets/income.svg';

@@ -57,7 +57,7 @@ export function TransactionsTable() {
                     currency: 'EUR'
                   }).format(transaction.amount)}
                 </td>
-                <td>{transaction?.category}</td>
+                <td>{transaction.category}</td>
                 <td>
                   {new Intl.DateTimeFormat('pt-BR').format(
                     new Date(transaction.createdAt)

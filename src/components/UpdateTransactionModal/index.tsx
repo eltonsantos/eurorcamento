@@ -27,28 +27,45 @@ interface UpdateTransactionModalProps {
 export function UpdateTransactionModal({ isOpen, onRequestClose, editingTransaction }: UpdateTransactionModalProps) {
 
   const { updateTransaction } = useTransactions()
-  const [transaction, setTransaction] = useState({
-    title: editingTransaction?.title,
-    amount: editingTransaction?.amount,
-    type: editingTransaction?.type,
-    category: editingTransaction?.category
-  })
-  useEffect(() => {
-    setTransaction({...transaction, title: editingTransaction?.title, amount: editingTransaction?.amount, type: editingTransaction?.type, category: editingTransaction?.category})
-  },[editingTransaction])
-  console.log(editingTransaction)
-  console.log(transaction);
+
+  const [title, setTitle] = useState(editingTransaction?.title);
+  const [amount, setAmount] = useState(editingTransaction?.amount);
+  const [category, setCategory] = useState(editingTransaction?.category);
+  const [type, setType] = useState(editingTransaction?.type);
+
+  // const [transaction, setTransaction] = useState({
+  //   title: editingTransaction?.title,
+  //   amount: editingTransaction?.amount,
+  //   type: editingTransaction?.type,
+  //   category: editingTransaction?.category
+  // })
+
+  // useEffect(() => {
+  //   setTransaction({
+  //     ...transaction,
+  //     title: editingTransaction?.title,
+  //     amount: editingTransaction?.amount,
+  //     type: editingTransaction?.type,
+  //     category: editingTransaction?.category
+  //   })
+  // },[editingTransaction])
   
-  async function handleUpdateTransaction(event: any) {
+  // async function handleUpdateTransaction(event: FormEvent) {
+  //   event.preventDefault();
+  //   await updateTransaction({...transaction})
+  //   setTransaction()
+  // }
+
+  async function handleUpdateTransaction(event: FormEvent) {
     event.preventDefault();
-    console.log("UpdID" + editingTransaction)
-    // await updateTransaction()
-    //setEditingTransaction(editingTransaction)
   }
 
-  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setTransaction({...transaction, [e.target.name]: e.target.value});
-  }
+  // const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+  //   setTransaction({
+  //     ...transaction,
+  //     [e.target.name]: e.target.value
+  //   });
+  // }
 
   return (
     <Modal
@@ -73,32 +90,33 @@ export function UpdateTransactionModal({ isOpen, onRequestClose, editingTransact
           type="text"
           placeholder="Título"
           name="title"
-          value={transaction.title}
-          onChange={handleInputChange}
+          value={title}
+          onChange={e => setTitle(e.target.value)}
         />
 
         <input
           type="number"
           placeholder="Valor"
-          value={transaction.amount}
-          onChange={handleInputChange}
+          name="amount"
+          value={amount}
+          onChange={e => setAmount(Number(e.target.value))}
         />
 
         <S.TransactionTypeContainer>
           <S.RadioBox
             type="button"
-            isActive={transaction?.type === 'deposit'}
+            isActive={type === 'deposit'}
             activeColor="green"
-            onClick={() => {setTransaction({...transaction, type: 'deposit'})}}
+            onClick={() => {setType('deposit')}}
           >
             <img src={incomeImg} alt="Entrada" />
             <span>Entrada</span>
           </S.RadioBox>
           <S.RadioBox
             type="button"
-            isActive={transaction?.type === 'withdraw'}
+            isActive={type === 'withdraw'}
             activeColor="red"
-            onClick={() => {setTransaction({...transaction, type: 'withdraw'})}}
+            onClick={() => {setType('withdraw')}}
           >
             <img src={outcomeImg} alt="Saída" />
             <span>Saída</span>
@@ -108,8 +126,9 @@ export function UpdateTransactionModal({ isOpen, onRequestClose, editingTransact
         <input
           type="text"
           placeholder="Categoria"
-          value={editingTransaction?.category}
-          onChange={handleInputChange}
+          name="category"
+          value={category}
+          onChange={e => setCategory(e.target.value)}
         />
 
         <button type="submit">Atualizar</button>

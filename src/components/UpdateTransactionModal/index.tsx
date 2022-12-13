@@ -1,4 +1,4 @@
-import { ChangeEvent, FormEvent, useState } from 'react';
+import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 import Modal from 'react-modal';
 
 import incomeImg from '../../assets/income.svg';
@@ -27,13 +27,17 @@ interface UpdateTransactionModalProps {
 export function UpdateTransactionModal({ isOpen, onRequestClose, editingTransaction }: UpdateTransactionModalProps) {
 
   const { updateTransaction } = useTransactions()
-
-  const [title, setTitle] = useState('');
-  const [amount, setAmount] = useState(0);
-  const [category, setCategory] = useState('');
-  const [type, setType] = useState('deposit');
-
-  //console.log(editingTransaction)
+  const [transaction, setTransaction] = useState({
+    title: editingTransaction?.title,
+    amount: editingTransaction?.amount,
+    type: editingTransaction?.type,
+    category: editingTransaction?.category
+  })
+  useEffect(() => {
+    setTransaction({...transaction, title: editingTransaction?.title, amount: editingTransaction?.amount, type: editingTransaction?.type, category: editingTransaction?.category})
+  },[editingTransaction])
+  console.log(editingTransaction)
+  console.log(transaction);
   
   async function handleUpdateTransaction(event: any) {
     event.preventDefault();
@@ -42,10 +46,8 @@ export function UpdateTransactionModal({ isOpen, onRequestClose, editingTransact
     //setEditingTransaction(editingTransaction)
   }
 
-  const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
-    if(event.currentTarget.name === 'title') {
-      setTitle(event.target.value)
-    }
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setTransaction({...transaction, [e.target.name]: e.target.value});
   }
 
   return (
@@ -71,32 +73,32 @@ export function UpdateTransactionModal({ isOpen, onRequestClose, editingTransact
           type="text"
           placeholder="Título"
           name="title"
-          value={editingTransaction?.title}
+          value={transaction.title}
           onChange={handleInputChange}
         />
 
         <input
           type="number"
           placeholder="Valor"
-          value={editingTransaction?.amount}
-          onChange={e => setTitle(e.target.value)}
+          value={transaction.amount}
+          onChange={handleInputChange}
         />
 
         <S.TransactionTypeContainer>
           <S.RadioBox
             type="button"
-            isActive={editingTransaction?.type === 'deposit'}
+            isActive={transaction?.type === 'deposit'}
             activeColor="green"
-            onClick={() => {setType('deposit')}}
+            onClick={() => {setTransaction({...transaction, type: 'deposit'})}}
           >
             <img src={incomeImg} alt="Entrada" />
             <span>Entrada</span>
           </S.RadioBox>
           <S.RadioBox
             type="button"
-            isActive={editingTransaction?.type === 'withdraw'}
+            isActive={transaction?.type === 'withdraw'}
             activeColor="red"
-            onClick={() => {setType('withdraw')}}
+            onClick={() => {setTransaction({...transaction, type: 'withdraw'})}}
           >
             <img src={outcomeImg} alt="Saída" />
             <span>Saída</span>
@@ -107,7 +109,7 @@ export function UpdateTransactionModal({ isOpen, onRequestClose, editingTransact
           type="text"
           placeholder="Categoria"
           value={editingTransaction?.category}
-          onChange={e => setTitle(e.target.value)}
+          onChange={handleInputChange}
         />
 
         <button type="submit">Atualizar</button>

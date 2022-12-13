@@ -1,4 +1,4 @@
-import { FormEvent, useState } from 'react';
+import { ChangeEvent, FormEvent, useState } from 'react';
 import Modal from 'react-modal';
 
 import incomeImg from '../../assets/income.svg';
@@ -35,11 +35,17 @@ export function UpdateTransactionModal({ isOpen, onRequestClose, editingTransact
 
   //console.log(editingTransaction)
   
-  async function handleUpdateTransaction(event: FormEvent) {
+  async function handleUpdateTransaction(event: any) {
     event.preventDefault();
     console.log("UpdID" + editingTransaction)
     // await updateTransaction()
     //setEditingTransaction(editingTransaction)
+  }
+
+  const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
+    if(event.currentTarget.name === 'title') {
+      setTitle(event.target.value)
+    }
   }
 
   return (
@@ -64,8 +70,9 @@ export function UpdateTransactionModal({ isOpen, onRequestClose, editingTransact
         <input
           type="text"
           placeholder="Título"
+          name="title"
           value={editingTransaction?.title}
-          onChange={e => setTitle(e.target.value)}
+          onChange={handleInputChange}
         />
 
         <input

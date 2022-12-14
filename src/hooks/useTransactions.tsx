@@ -66,7 +66,10 @@ export function TransactionsProvider({ children }: TransactionsProviderProps) {
   async function updateTransaction(transaction: Transaction) {
     console.log(transaction.id)
     await update(ref(realTimeDatabase, `transactions/${transaction.id}`), {
-      transactionUpdate
+      title: transaction.title,
+      amount: transaction.amount,
+      type: transaction.type,
+      category: transaction.category
     }).then(() => {
       const updatedTransaction = transactions.map((transaction) => {
         return transaction.id === transactionUpdate?.id ? transactionUpdate : transaction

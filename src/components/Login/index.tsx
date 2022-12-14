@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { FormEvent, useState } from 'react';
 import { useAuth } from '../../hooks/useAuth';
 

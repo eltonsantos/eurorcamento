@@ -5,7 +5,7 @@ const PublicRoutes = () => {
 
   const {currentUser} = useAuth();
 
-  console.log(currentUser)
+  //console.log(currentUser)
   
   return currentUser ? <Navigate to="/transactions" /> : <Outlet />
     

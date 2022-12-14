@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { PencilSimple, TrashSimple } from 'phosphor-react';
 import { useState } from 'react';
 import { useTransactions } from '../../hooks/useTransactions';
@@ -14,7 +15,6 @@ interface Transaction {
 }
 
 export function TransactionsTable() {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { transactions, removeTransaction, isLoading } = useTransactions()
   const [isUpdateTransactionModalOpen, setIsUpdateTransactionModalOpen] = useState(false)
   const [editingTransaction, setEditingTransaction] = useState<Transaction>()

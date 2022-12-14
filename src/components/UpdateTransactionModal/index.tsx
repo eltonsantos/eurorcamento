@@ -63,12 +63,6 @@ export function UpdateTransactionModal({ isOpen, onRequestClose, editingTransact
       type,
       createdAt: String(new Date()),
     })
-
-    console.log(id)
-    console.log(title)
-    console.log(amount)
-    console.log(category)
-    console.log(type)
     
     onRequestClose()
   }

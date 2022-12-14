@@ -13,8 +13,6 @@ const PrivateRoutes = () => {
   }
   
   return currentUser ? <Outlet /> : <Navigate to="/" />
-  //return currentUser ? <Outlet /> : <h1>Carregando...</h1>
-  // return currentUser ? <Outlet /> : <Loading />
     
 }
 

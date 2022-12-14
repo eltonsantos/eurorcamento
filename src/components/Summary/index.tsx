@@ -5,12 +5,10 @@ import outcomeImg from '../../assets/outcome.svg'
 import totalImg from '../../assets/total.svg'
 
 import * as S from "./styles"
-import { useState } from 'react'
 
 export function Summary() {
 
   const { transactions } = useTransactions()
-  //const [ transactions, setTransactions] = useState<any>('')
   
   const summary = transactions.reduce((acc, transaction) => {
     if (transaction.type === 'deposit') {

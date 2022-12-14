@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { onAuthStateChanged, signInWithEmailAndPassword, signOut } from "firebase/auth";
 import { createContext, ReactNode, useContext, useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom";

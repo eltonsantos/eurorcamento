@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { createContext, useEffect, useState, ReactNode, useContext } from 'react'
 import { realTimeDatabase } from '../services/firebaseconfig'
 import { onValue, push, ref, remove, update } from 'firebase/database'
@@ -32,7 +33,6 @@ export function TransactionsProvider({ children }: TransactionsProviderProps) {
  
   const [transactions, setTransactions] = useState<Transaction[]>([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [transactionUpdate, setTransactionUpdate] = useState<Transaction | null>(null);
 
   const transactionsRef = ref(realTimeDatabase, 'transactions')
 
@@ -64,16 +64,13 @@ export function TransactionsProvider({ children }: TransactionsProviderProps) {
   }
 
   async function updateTransaction(transaction: Transaction) {
-    console.log("ID1: " + transactionUpdate?.id)
-    console.log("ID2: " + transaction.id)
     await update(ref(realTimeDatabase, `transactions/${transaction.id}`), {
       title: transaction.title,
       amount: transaction.amount,
       type: transaction.type,
       category: transaction.category
     }).then(() => {
-      setTransactions(transactions.map((transaction) => transaction.id === transactionUpdate?.id ? transactionUpdate : transaction ))
-      //setTransactions(transactions)
+      setTransactions(transactions.map((t) => t.id === transaction.id ? transaction : t ))
       toast.success('Atualizada com sucesso')
       console.log('Atualizada no firebase');
 

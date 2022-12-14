@@ -14,7 +14,7 @@ interface Transaction {
 }
 
 export function TransactionsTable() {
-
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { transactions, removeTransaction, isLoading } = useTransactions()
   const [isUpdateTransactionModalOpen, setIsUpdateTransactionModalOpen] = useState(false)
   const [editingTransaction, setEditingTransaction] = useState<Transaction>()
@@ -33,7 +33,7 @@ export function TransactionsTable() {
       <table>
         <thead>
           <tr>
-            <th>#ID</th>
+            <th>#ID da Transação</th>
             <th>Título</th>
             <th>Valor</th>
             <th>Categoria</th>

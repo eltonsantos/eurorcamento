@@ -64,18 +64,15 @@ export function TransactionsProvider({ children }: TransactionsProviderProps) {
   }
 
   async function updateTransaction(transaction: Transaction) {
-    console.log(transaction.id)
     await update(ref(realTimeDatabase, `transactions/${transaction.id}`), {
       title: transaction.title,
       amount: transaction.amount,
       type: transaction.type,
       category: transaction.category
     }).then(() => {
-      const updatedTransaction = transactions.map((transaction) => {
-        return transaction.id === transactionUpdate?.id ? transactionUpdate : transaction
-      });
-  
-      setTransactions(updatedTransaction)
+      console.log("ID1: " + transactionUpdate?.id)
+      console.log("ID2: " + transaction.id)
+      setTransactions(transactions.map((transaction) => transaction.id === transactionUpdate?.id ? transactionUpdate : transaction ))
       toast.success('Atualizada com sucesso')
       console.log('Atualizada no firebase');
 

@@ -66,12 +66,13 @@ export function TransactionsTable() {
                     <PencilSimple
                       size={20}
                       weight="fill"
+                      color="#969cb3"
                       onClick={() => onOpenUpdateTransactionModal(transaction)}
                     />
                     <TrashSimple
                       size={20}
                       weight="fill"
-                      color="red"
+                      color="#E52E40"
                       onClick={() => removeTransaction(transaction.id)}
                     />
                   </div>

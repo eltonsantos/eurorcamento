@@ -7,6 +7,8 @@ import incomeImg from '../../assets/income.svg';
 import outcomeImg from '../../assets/outcome.svg';
 import closeImg from '../../assets/close.svg';
 
+import * as Yup from "yup";
+
 import * as S from './styles';
 
 interface NewTransactionModalProps {

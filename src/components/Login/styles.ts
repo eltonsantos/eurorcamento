@@ -8,8 +8,9 @@ export const Container = styled.div`
   display: flex;  
   flex-direction: column;
 
-  @media (max-width: 768px) {
+  @media (max-width: 600px) {
     padding: 40px;
+    width:auto;
   }
 
   img {

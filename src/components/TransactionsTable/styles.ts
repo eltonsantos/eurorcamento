@@ -6,6 +6,11 @@ export const Container = styled.section`
   table {
     width: 100%;
     border-spacing: 0 0.5rem;
+
+    @media (max-width: 768px) {
+      display: block;
+      overflow-x: auto;
+    }
     
     th {
       color: var(--text-body);

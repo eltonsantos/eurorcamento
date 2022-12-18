@@ -1,16 +1,16 @@
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
+import { getDatabase } from "firebase/database";
 import { getFirestore } from "firebase/firestore";
 import { getStorage } from "firebase/storage";
-import { getDatabase } from "firebase/database";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyBAQaVLC847aLQeHAInk0Hot0UyTtPQ3Sg",
+  apiKey: process.env.REACT_APP_API_KEY,
   authDomain: "eurorcamento.firebaseapp.com",
   projectId: "eurorcamento",
   storageBucket: "eurorcamento.appspot.com",
-  messagingSenderId: "886421526942",
-  appId: "1:886421526942:web:32430b9019195e51511e8f"
+  messagingSenderId: process.env.REACT_APP_MESSAGING_SENDER_ID,
+  appId: process.env.REACT_APP_APP_ID,
 };
 
 const app = initializeApp(firebaseConfig);

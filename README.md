@@ -27,6 +27,10 @@ This project was developed using the following technologies:
 - [Styled Components](https://styled-components.com/)
 - [React Toastify](https://fkhadra.github.io/react-toastify/introduction)
 - [React Router DOM](https://reactrouter.com/)
+- [React Modal](http://reactcommunity.org/react-modal/)
+- [React Loading](https://github.com/fakiolinho/react-loading)
+- [Phosphor Icons](https://phosphoricons.com/)
+- [Polished](https://polished.js.org/)
 - [Yup](https://github.com/jquense/yup)
 
 ## 🚀 Getting started
@@ -44,7 +48,7 @@ Follow the steps below
 $ npm install
 
 # Start the project
-$ npm run dev
+$ npm run start
 ```
 
 ## 💻 Project

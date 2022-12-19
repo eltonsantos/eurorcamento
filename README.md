@@ -66,8 +66,9 @@ Application developed for personal purposes with objective to separate my person
 ###### Escreverei essa parte em português
 
 - [ ] Cobrir o sistema de testes! 👁‍🗨
-- [ ] Criar uma busca da lista de tarefas 🔎
-- [ ] Alterar visual em dark/light mode
+- [ ] Criar uma busca por nome das transações 🔎
+- [ ] Alterar visual em dark/light mode 🌗
+- [ ] Criar paginação 🥖
 - [ ] E muito mais... ❤💪🏼
 
 ---

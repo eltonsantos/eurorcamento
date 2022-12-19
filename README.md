@@ -49,7 +49,7 @@ $ npm run dev
 
 ## 💻 Project
 
-Coming soon description
+Application developed for personal purposes with objective to separate my personal finances in reais with my expenses in euros. It came from need of the application that I use not being able to have both currencies in the same account. So I created the Eurorçamento with a focus on the euro.
 
 ## 🔖 Layout
 

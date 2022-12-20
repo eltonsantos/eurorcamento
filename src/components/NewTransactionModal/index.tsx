@@ -9,6 +9,7 @@ import outcomeImg from "../../assets/outcome.svg";
 
 import * as Yup from "yup";
 
+import { toast } from "react-toastify";
 import * as S from "./styles";
 
 interface NewTransactionModalProps {
@@ -36,25 +37,30 @@ export function NewTransactionModal({
   async function handleCreateNewTransaction(event: FormEvent) {
     event.preventDefault();
 
-    await createTransactionSchema.validate({
-      title,
-      amount,
-      category,
-    });
+    await createTransactionSchema
+      .validate({
+        title,
+        amount,
+        category,
+      })
+      .then(() => {
+        createTransaction({
+          title,
+          amount,
+          category,
+          type,
+        });
 
-    await createTransaction({
-      title,
-      amount,
-      category,
-      type,
-    });
+        setTitle("");
+        setAmount(0);
+        setCategory("");
+        setType("deposit");
 
-    setTitle("");
-    setAmount(0);
-    setCategory("");
-    setType("deposit");
-
-    onRequestClose();
+        onRequestClose();
+      })
+      .catch((error) => {
+        toast.error(error.message);
+      });
   }
 
   return (

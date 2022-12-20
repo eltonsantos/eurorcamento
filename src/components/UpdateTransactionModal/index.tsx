@@ -7,6 +7,8 @@ import outcomeImg from "../../assets/outcome.svg";
 
 import * as Yup from "yup";
 
+import { toast } from "react-toastify";
+
 import * as S from "./styles";
 
 import { useTransactions } from "../../hooks/useTransactions";
@@ -66,22 +68,27 @@ export function UpdateTransactionModal({
   async function handleUpdateTransaction(event: FormEvent) {
     event.preventDefault();
 
-    await updateTransactionSchema.validate({
-      title,
-      amount,
-      category,
-    });
+    await updateTransactionSchema
+      .validate({
+        title,
+        amount,
+        category,
+      })
+      .then(() => {
+        updateTransaction({
+          id,
+          title,
+          amount,
+          category,
+          type,
+          createdAt: String(new Date()),
+        });
 
-    await updateTransaction({
-      id,
-      title,
-      amount,
-      category,
-      type,
-      createdAt: String(new Date()),
-    });
-
-    onRequestClose();
+        onRequestClose();
+      })
+      .catch((error) => {
+        toast.error(error.message);
+      });
   }
 
   return (

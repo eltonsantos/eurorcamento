@@ -1,10 +1,20 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { onAuthStateChanged, signInWithEmailAndPassword, signOut } from "firebase/auth";
-import { createContext, ReactNode, useContext, useEffect, useState } from "react"
+import {
+  onAuthStateChanged,
+  signInWithEmailAndPassword,
+  signOut,
+} from "firebase/auth";
+import {
+  createContext,
+  ReactNode,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 import { useNavigate } from "react-router-dom";
 import { auth } from "../services/firebaseconfig";
 
-import { toast } from 'react-toastify'
+import { toast } from "react-toastify";
 interface AuthProviderProps {
   children: ReactNode;
 }
@@ -22,66 +32,68 @@ interface AuthContextData {
   isLoading: boolean;
 }
 
-const AuthContext = createContext<AuthContextData>({} as AuthContextData)
+const AuthContext = createContext<AuthContextData>({} as AuthContextData);
 
 export function AuthProvider({ children }: AuthProviderProps) {
-
-  const navigate = useNavigate()
-  const [currentUser,setCurrentUser] = useState<any | null>(null);
+  const navigate = useNavigate();
+  const [currentUser, setCurrentUser] = useState<any | null>(null);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState(false)
+  const [error, setError] = useState(false);
 
   async function handleLogin({ email, password }: HandleLoginProps) {
     try {
-      await signInWithEmailAndPassword(auth, email, password)
+      await signInWithEmailAndPassword(auth, email, password);
       //console.log(auth)
-      setIsLoggedIn(true)
+      setIsLoggedIn(true);
       //localStorage.setItem('@eurocamento:auth', JSON.stringify(auth));
-      navigate('/transactions')
+      navigate("/transactions");
 
-      toast.success('Seja bem vindo ao EurOrçamento');
+      toast.success("Seja bem vindo ao EurOrçamento");
     } catch (error) {
-      setError(true)
+      setError(true);
+      toast.error("E-mail ou senha incorretos");
       if (error instanceof Error) {
-        console.log(error.message)
+        console.log(error.message);
       } else {
-        console.log('Unexpected error: ' + error)
+        console.log("Unexpected error: " + error);
       }
     }
   }
 
   async function handleLogout() {
-    await signOut(auth)
+    await signOut(auth);
     //console.log(auth)
     //localStorage.removeItem('@eurocamento:auth')
-    setIsLoggedIn(false)
-    setCurrentUser(null)
-    navigate('/')
+    setIsLoggedIn(false);
+    setCurrentUser(null);
+    navigate("/");
   }
 
   useEffect(() => {
     onAuthStateChanged(auth, (currentUser) => {
-      if (currentUser) {    
+      if (currentUser) {
         //console.log('Logged')
         //setIsLoggedIn(true)
-        setCurrentUser(currentUser)
-        setIsLoading(false)
+        setCurrentUser(currentUser);
+        setIsLoading(false);
       } else {
         //console.log('Not logged')
-        setIsLoading(false)
+        setIsLoading(false);
       }
-    })
-  }, [currentUser])
+    });
+  }, [currentUser]);
 
   return (
-    <AuthContext.Provider value={{ currentUser, isLoggedIn, isLoading, handleLogin, handleLogout }}>
-      { children }
+    <AuthContext.Provider
+      value={{ currentUser, isLoggedIn, isLoading, handleLogin, handleLogout }}
+    >
+      {children}
     </AuthContext.Provider>
-  )
+  );
 }
 
 export function useAuth() {
-  const context = useContext(AuthContext)
-  return context
+  const context = useContext(AuthContext);
+  return context;
 }

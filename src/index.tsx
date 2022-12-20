@@ -1,10 +1,13 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
+import React from "react";
+import ReactDOM from "react-dom/client";
 // import { createServer, Model } from 'miragejs';
-import { App } from './App';
-import { BrowserRouter } from 'react-router-dom';
-import { TransactionsProvider } from './hooks/useTransactions';
-import { AuthProvider } from './hooks/useAuth';
+import { BrowserRouter } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+import { App } from "./App";
+import { AuthProvider } from "./hooks/useAuth";
+import { TransactionsProvider } from "./hooks/useTransactions";
+
+import "react-toastify/dist/ReactToastify.css";
 
 // createServer({
 
@@ -37,7 +40,7 @@ import { AuthProvider } from './hooks/useAuth';
 
 //   routes() {
 //     this.namespace = 'api';
-    
+
 //     this.get('/transactions', () => {
 //       return this.schema.all('transaction')
 //     });
@@ -56,13 +59,13 @@ import { AuthProvider } from './hooks/useAuth';
 //       const id = request.params.id // Vejo que ta sendo chamada, mas não acho que esteja fazendo nada
 //       return schema.find('transaction', id)?.destroy() // Não entendi por que fui obrigado a deixar o opcional ? Como por outra forma?
 //     })
-       // To firebase
-//     this.passthrough('https://identitytoolkit.googleapis.com/**') 
+// To firebase
+//     this.passthrough('https://identitytoolkit.googleapis.com/**')
 //   }
 // })
 
 const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement
+  document.getElementById("root") as HTMLElement
 );
 root.render(
   <React.StrictMode>
@@ -70,6 +73,7 @@ root.render(
       <BrowserRouter>
         <AuthProvider>
           <App />
+          <ToastContainer />
         </AuthProvider>
       </BrowserRouter>
     </TransactionsProvider>

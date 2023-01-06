@@ -67,6 +67,8 @@ Application developed for personal purposes with objective to separate my person
 
 - [ ] Cobrir o sistema de testes! 👁‍🗨
 - [ ] Criar uma busca por nome das transações 🔎
+- [ ] Criação de filtros por categoria, tipo e data da transaçao 🗃️
+- [ ] Ordenar transações da mais atual para a menos atual 🗓️
 - [ ] Alterar visual em dark/light mode 🌗
 - [ ] Coluna com contagem das transações 1️⃣
 - [ ] Criar paginação 🥖

@@ -31,7 +31,8 @@ interface TransactionsContextData {
   createTransaction: (transaction: TransactionInput) => Promise<void>;
   updateTransaction: (transaction: Transaction) => Promise<void>;
   removeTransaction: (id: string) => Promise<void>;
-  filterTransactions: (searchTerm: string) => void;
+  handleRemoveTransaction: (id: string) => void;
+  filterTransactions: (id: string) => void;
   isLoading: boolean;
 }
 
@@ -72,6 +73,14 @@ export function TransactionsProvider({ children }: TransactionsProviderProps) {
           transaction.category.toLowerCase().includes(lowercasedTerm)
       );
       setFilteredTransactions(filtered);
+    }
+  }
+
+  function handleRemoveTransaction(id: string) {
+    const confirmed = window.confirm("Você tem certeza que deseja remover esta transação?");
+
+    if (confirmed) {
+      removeTransaction(id);
     }
   }
 
@@ -132,6 +141,7 @@ export function TransactionsProvider({ children }: TransactionsProviderProps) {
         transactions,
         filteredTransactions,
         createTransaction,
+        handleRemoveTransaction,
         removeTransaction,
         updateTransaction,
         filterTransactions,

@@ -17,7 +17,7 @@ interface Transaction {
 }
 
 export function TransactionsTable() {
-  const { filteredTransactions, removeTransaction, isLoading } = useTransactions()
+  const { filteredTransactions, handleRemoveTransaction, isLoading } = useTransactions()
   const [isUpdateTransactionModalOpen, setIsUpdateTransactionModalOpen] = useState(false)
   const [editingTransaction, setEditingTransaction] = useState<Transaction>()
 
@@ -78,7 +78,7 @@ export function TransactionsTable() {
                       size={20}
                       weight="fill"
                       color="#E52E40"
-                      onClick={() => removeTransaction(transaction.id)}
+                      onClick={() => handleRemoveTransaction(transaction.id)}
                     />
                   </div>
                 </td>

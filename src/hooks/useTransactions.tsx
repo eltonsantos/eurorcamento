@@ -27,9 +27,11 @@ interface TransactionsProviderProps {
 
 interface TransactionsContextData {
   transactions: Transaction[];
+  filteredTransactions: Transaction[];
   createTransaction: (transaction: TransactionInput) => Promise<void>;
   updateTransaction: (transaction: Transaction) => Promise<void>;
   removeTransaction: (id: string) => Promise<void>;
+  filterTransactions: (searchTerm: string) => void;
   isLoading: boolean;
 }
 
@@ -39,6 +41,7 @@ const TransactionsContext = createContext<TransactionsContextData>(
 
 export function TransactionsProvider({ children }: TransactionsProviderProps) {
   const [transactions, setTransactions] = useState<Transaction[]>([]);
+  const [filteredTransactions, setFilteredTransactions] = useState<Transaction[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
   const transactionsRef = ref(realTimeDatabase, "transactions");
@@ -53,9 +56,24 @@ export function TransactionsProvider({ children }: TransactionsProviderProps) {
         return { ...data[key], id: key };
       });
       setTransactions(treatData);
+      setFilteredTransactions(treatData);
       setIsLoading(false);
     });
   }, []);
+
+  function filterTransactions(searchTerm: string) {
+    if (!searchTerm) {
+      setFilteredTransactions(transactions);
+    } else {
+      const lowercasedTerm = searchTerm.toLowerCase();
+      const filtered = transactions.filter(
+        (transaction) =>
+          transaction.title.toLowerCase().includes(lowercasedTerm) ||
+          transaction.category.toLowerCase().includes(lowercasedTerm)
+      );
+      setFilteredTransactions(filtered);
+    }
+  }
 
   async function createTransaction(transactionInput: TransactionInput) {
     await push(transactionsRef, {
@@ -112,9 +130,11 @@ export function TransactionsProvider({ children }: TransactionsProviderProps) {
     <TransactionsContext.Provider
       value={{
         transactions,
+        filteredTransactions,
         createTransaction,
         removeTransaction,
         updateTransaction,
+        filterTransactions,
         isLoading,
       }}
     >

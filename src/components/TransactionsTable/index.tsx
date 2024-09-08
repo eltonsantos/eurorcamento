@@ -4,6 +4,8 @@ import { useState } from 'react';
 import { useTransactions } from '../../hooks/useTransactions';
 import { UpdateTransactionModal } from '../UpdateTransactionModal';
 import * as S from './styles';
+import { SearchForm } from '../SearchForm';
+import { ExportData } from '../ExportData';
 
 interface Transaction {
   id: string;
@@ -15,7 +17,7 @@ interface Transaction {
 }
 
 export function TransactionsTable() {
-  const { transactions, removeTransaction, isLoading } = useTransactions()
+  const { filteredTransactions, removeTransaction, isLoading } = useTransactions()
   const [isUpdateTransactionModalOpen, setIsUpdateTransactionModalOpen] = useState(false)
   const [editingTransaction, setEditingTransaction] = useState<Transaction>()
 
@@ -30,6 +32,7 @@ export function TransactionsTable() {
 
   return (
     <S.Container>
+      <SearchForm />
       <table>
         <thead>
           <tr>
@@ -38,12 +41,14 @@ export function TransactionsTable() {
             <th>Valor</th>
             <th>Categoria</th>
             <th>Data</th>
-            <th></th>
+            <th>
+              <ExportData />
+            </th>
           </tr>
         </thead>
         <tbody>
 
-          {transactions.length ? transactions.map((transaction: Transaction) => {
+          {filteredTransactions.length ? filteredTransactions.map((transaction: Transaction) => {
             // Como usar o isLoading que está em outro componente aqui para carregar somente apos a api ser carregada?
             return (
               <tr key={transaction.id}>

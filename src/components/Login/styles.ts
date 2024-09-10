@@ -41,13 +41,13 @@ export const Container = styled.div`
   }
 
   .email:before {
-    content: '\f007';
+    content: '';
     font: 14px fontawesome;
     color: #5b5b5b;
   }
 
   .lock:before {
-    content: '\f023';
+    content: '';
     font: 14px fontawesome;
     color: #5b5b5b;
   }

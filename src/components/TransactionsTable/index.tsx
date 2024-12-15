@@ -50,6 +50,7 @@ export function TransactionsTable() {
       <table>
         <thead>
           <tr>
+            <th>#</th>
             <th>#ID da Transação</th>
             <th>Título</th>
             <th>Valor</th>
@@ -62,10 +63,11 @@ export function TransactionsTable() {
         </thead>
         <tbody>
 
-          {displayedTransactions.length ? displayedTransactions.map((transaction: Transaction) => {
+          {displayedTransactions.length ? displayedTransactions.map((transaction: Transaction, index: number) => {
             // Como usar o isLoading que está em outro componente aqui para carregar somente apos a api ser carregada?
             return (
               <tr key={transaction.id}>
+                <td>{index + 1 + currentPage * itemsPerPage}</td>
                 <td>{transaction.id}</td>
                 <td>{transaction.title}</td>
                 <td className={transaction.type}>
@@ -98,7 +100,7 @@ export function TransactionsTable() {
                 </td>
               </tr>
             )
-          }) : <tr><td colSpan={6} align="center">Não há transações cadastradas</td></tr>}
+          }) : <tr><td colSpan={7} align="center">Não há transações cadastradas</td></tr>}
         </tbody>
       </table>
 

@@ -29,6 +29,7 @@ This project was developed using the following technologies:
 - [React Router DOM](https://reactrouter.com/)
 - [React Modal](http://reactcommunity.org/react-modal/)
 - [React Loading](https://github.com/fakiolinho/react-loading)
+- [React Paginate](https://github.com/AdeleD/react-paginate)
 - [Phosphor Icons](https://phosphoricons.com/)
 - [Polished](https://polished.js.org/)
 - [Yup](https://github.com/jquense/yup)
@@ -66,12 +67,9 @@ Application developed for personal purposes with objective to separate my person
 ###### Escreverei essa parte em português
 
 - [ ] Cobrir o sistema de testes! 👁‍🗨
-- [ ] Criar uma busca por nome das transações 🔎
-- [ ] Criação de filtros por categoria, tipo e data da transaçao 🗃️
-- [ ] Ordenar transações da mais atual para a menos atual 🗓️
+- [ ] Criação de filtros por categoria, tipo e data da transação 🗃️
 - [ ] Alterar visual em dark/light mode 🌗
 - [ ] Coluna com contagem das transações 1️⃣
-- [ ] Criar paginação 🥖
 - [ ] E muito mais... ❤💪🏼
 
 ---

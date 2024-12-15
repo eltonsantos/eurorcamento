@@ -22,6 +22,11 @@ export const Container = styled.div`
         &:hover {
           color: var(--text-body);
         }
+
+        &:focus {
+          outline: 2px solid var(--blue);
+          border-radius: 3px;
+        }
       }
 
       a {

@@ -29,6 +29,14 @@ export const PaginationContainer = styled.div`
         background-color: var(--blue-light);
         color: var(--shape);
       }
+
+      a {
+        &:focus-visible {
+          outline: none;
+          border-radius: 3px;
+        }
+      }
+
     }
 
     .previous,

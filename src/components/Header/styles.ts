@@ -39,5 +39,10 @@ export const Content = styled.div`
     &:hover {
       filter: brightness(0.9);
     }
+
+    &:focus-visible {
+      outline: 1px solid var(--blue-light);
+      border-radius: 3px;
+    }
   }
 `;

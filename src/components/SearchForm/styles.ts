@@ -15,6 +15,12 @@ export const SearchFormContainer = styled.form`
     &::placeholder {
       color: var(--text-body);
     }
+
+    &:focus-visible {
+      outline: 1px solid var(--green-300);
+      border-radius: 3px;
+    }
+
   }
 
   button {
@@ -32,6 +38,11 @@ export const SearchFormContainer = styled.form`
     &:hover {
       background-color: var(--green-300);
       transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+    }
+
+    &:focus-visible {
+      outline: 1px solid var(--green-300);
+      border-radius: 3px;
     }
   }
 `;

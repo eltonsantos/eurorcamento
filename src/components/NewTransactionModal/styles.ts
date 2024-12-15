@@ -70,7 +70,7 @@ export const RadioBox = styled.button<RadioBoxProps>`
   border: 1px solid #d7d7d7;
   border-radius: 0.25rem;
 
-  background: ${(props) => props.isActive ? transparentize(0.9, colors[props.activeColor]) : 'transparent'};
+  background: ${(props) => props.isActive ? transparentize(0.7, colors[props.activeColor]) : 'transparent'};
   
   display: flex;
   align-items: center;

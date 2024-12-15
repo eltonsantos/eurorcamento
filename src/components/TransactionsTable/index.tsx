@@ -6,6 +6,7 @@ import { UpdateTransactionModal } from '../UpdateTransactionModal';
 import * as S from './styles';
 import { SearchForm } from '../SearchForm';
 import { ExportData } from '../ExportData';
+import { Pagination } from '../Pagination';
 
 interface Transaction {
   id: string;
@@ -20,6 +21,19 @@ export function TransactionsTable() {
   const { filteredTransactions, handleRemoveTransaction, isLoading } = useTransactions()
   const [isUpdateTransactionModalOpen, setIsUpdateTransactionModalOpen] = useState(false)
   const [editingTransaction, setEditingTransaction] = useState<Transaction>()
+  const [currentPage, setCurrentPage] = useState(0);
+
+  const itemsPerPage = 5;
+  const pageCount = Math.ceil(filteredTransactions.length / itemsPerPage);
+
+  const displayedTransactions = filteredTransactions.slice(
+    currentPage * itemsPerPage,
+    (currentPage + 1) * itemsPerPage
+  );
+
+  function handlePageChange(selectedItem: { selected: number }) {
+    setCurrentPage(selectedItem.selected);
+  }
 
   function onOpenUpdateTransactionModal(transaction: Transaction) {
     setEditingTransaction(transaction)
@@ -48,7 +62,7 @@ export function TransactionsTable() {
         </thead>
         <tbody>
 
-          {filteredTransactions.length ? filteredTransactions.map((transaction: Transaction) => {
+          {displayedTransactions.length ? displayedTransactions.map((transaction: Transaction) => {
             // Como usar o isLoading que está em outro componente aqui para carregar somente apos a api ser carregada?
             return (
               <tr key={transaction.id}>
@@ -87,6 +101,8 @@ export function TransactionsTable() {
           }) : <tr><td colSpan={6} align="center">Não há transações cadastradas</td></tr>}
         </tbody>
       </table>
+
+      <Pagination pageCount={pageCount} onPageChange={handlePageChange} />
 
       <UpdateTransactionModal
         isOpen={isUpdateTransactionModalOpen}

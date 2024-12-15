@@ -11,7 +11,7 @@ export function Pagination({ pageCount, onPageChange }: PaginationProps) {
     <S.PaginationContainer>
       <ReactPaginate
         pageCount={pageCount}
-        pageRangeDisplayed={10}
+        pageRangeDisplayed={15}
         marginPagesDisplayed={2}
         onPageChange={onPageChange}
         previousLabel="Anterior"

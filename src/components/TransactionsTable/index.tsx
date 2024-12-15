@@ -23,7 +23,7 @@ export function TransactionsTable() {
   const [editingTransaction, setEditingTransaction] = useState<Transaction>()
   const [currentPage, setCurrentPage] = useState(0);
 
-  const itemsPerPage = 5;
+  const itemsPerPage = 15;
   const pageCount = Math.ceil(filteredTransactions.length / itemsPerPage);
 
   const displayedTransactions = filteredTransactions.slice(

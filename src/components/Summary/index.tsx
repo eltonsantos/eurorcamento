@@ -67,9 +67,10 @@ export function Summary() {
             currency: 'EUR'
           }).format(totalWithWise || summary.total)}
         </strong>
+        
+        <WiseCheckBox total={summary.total} onUpdateTotal={setTotalWithWise} />
+      
       </div>
-
-      <WiseCheckBox total={summary.total} onUpdateTotal={setTotalWithWise} />
 
     </S.Container>
   )

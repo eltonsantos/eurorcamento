@@ -1,8 +1,9 @@
 import styled from "styled-components";
 
 export const Label = styled.label`
-  color: var(--blue);
+  color: var(--shape);
   display: flex;
-  align-items: center;
   gap: 0.5rem;
+  text-align: right;
+  width: 100%;
 `

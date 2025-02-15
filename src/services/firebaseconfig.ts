@@ -4,14 +4,16 @@ import { getDatabase } from "firebase/database";
 import { getFirestore } from "firebase/firestore";
 import { getStorage } from "firebase/storage";
 
+// To test: elton@elton.com 123456
+
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_API_KEY,
-  authDomain: "eurorcamento.firebaseapp.com",
-  projectId: "eurorcamento",
-  storageBucket: "eurorcamento.appspot.com",
-  // authDomain: "eurorcamento-dev.firebaseapp.com",
-  // projectId: "eurorcamento-dev",
-  // storageBucket: "eurorcamento-dev.appspot.com",
+  // authDomain: "eurorcamento.firebaseapp.com",
+  // projectId: "eurorcamento",
+  // storageBucket: "eurorcamento.appspot.com",
+  authDomain: "eurorcamento-dev.firebaseapp.com",
+  projectId: "eurorcamento-dev",
+  storageBucket: "eurorcamento-dev.appspot.com",
   messagingSenderId: process.env.REACT_APP_MESSAGING_SENDER_ID,
   appId: process.env.REACT_APP_APP_ID,
 };

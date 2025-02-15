@@ -1,14 +1,18 @@
+import { useState } from 'react'
 import { useTransactions } from '../../hooks/useTransactions'
 
 import incomeImg from '../../assets/income.svg'
 import outcomeImg from '../../assets/outcome.svg'
 import totalImg from '../../assets/total.svg'
 
+import WiseCheckBox from '../WiseCheckBox'
+
 import * as S from "./styles"
 
 export function Summary() {
 
   const { transactions } = useTransactions()
+  const [totalWithWise, setTotalWithWise] = useState(0);
   
   const summary = transactions.reduce((acc, transaction) => {
     if (transaction.type === 'deposit') {
@@ -61,9 +65,12 @@ export function Summary() {
           {new Intl.NumberFormat('pt-BR', {
             style: 'currency',
             currency: 'EUR'
-          }).format(summary.total)}
+          }).format(totalWithWise || summary.total)}
         </strong>
       </div>
+
+      <WiseCheckBox total={summary.total} onUpdateTotal={setTotalWithWise} />
+
     </S.Container>
   )
 }

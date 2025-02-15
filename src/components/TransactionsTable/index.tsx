@@ -51,7 +51,6 @@ export function TransactionsTable() {
         <thead>
           <tr>
             <th>#</th>
-            <th>#ID da Transação</th>
             <th>Título</th>
             <th>Valor</th>
             <th>Categoria</th>
@@ -68,7 +67,6 @@ export function TransactionsTable() {
             return (
               <tr key={transaction.id}>
                 <td>{index + 1 + currentPage * itemsPerPage}</td>
-                <td>{transaction.id}</td>
                 <td>{transaction.title}</td>
                 <td className={transaction.type}>
                   {new Intl.NumberFormat('pt-BR', {

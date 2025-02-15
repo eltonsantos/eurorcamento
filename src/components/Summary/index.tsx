@@ -56,7 +56,7 @@ export function Summary() {
           }).format(summary.withdraw)}
         </strong>
       </div>
-      <div className={`${summary.total >= 0 ? "highlight-background" : "highlight-background-negative"}`}>
+      <div className={`${(totalWithWise || summary.total) >= 0 ? "highlight-background" : "highlight-background-negative"}`}>
         <header>
           <p>Total</p>
           <img src={totalImg} alt="Total" />

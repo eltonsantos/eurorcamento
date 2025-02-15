@@ -1,8 +1,12 @@
-import { useState } from "react";
-import Modal from "react-modal";
-import closeImg from "../../assets/close.svg";
-import * as S from "./styles";
+import { FormEvent, useEffect, useState } from "react";
 import { useWiseTransactions } from "../../hooks/useWiseTransactions";
+
+import Modal from "react-modal";
+
+import closeImg from "../../assets/close.svg";
+
+import { toast } from "react-toastify";
+import * as S from "./styles";
 
 interface WiseModalProps {
   isOpen: boolean;
@@ -11,14 +15,31 @@ interface WiseModalProps {
 
 export function WiseModal({ isOpen, onRequestClose }: WiseModalProps) {
   const { wiseBalance, setWiseBalance, saveWiseBalance } = useWiseTransactions();
-  const [inputValue, setInputValue] = useState(String(wiseBalance));
+  const [inputValue, setInputValue] = useState("");
 
-  function handleSaveBalance() {
+  useEffect(() => {
+    if (isOpen) {
+      setInputValue(String(wiseBalance));
+    }
+  }, [isOpen, wiseBalance]);
+
+  async function handleSaveBalance(event: FormEvent) {
+    event.preventDefault();
+
     const balance = parseFloat(inputValue);
-    if (isNaN(balance)) return;
+    if (isNaN(balance)) {
+      toast.error("Insira um valor válido.");
+      return;
+    }
 
-    saveWiseBalance(balance);
-    setWiseBalance(balance);
+    try {
+      await saveWiseBalance(balance);
+      setWiseBalance(balance);
+      onRequestClose();
+    } catch (error) {
+      console.error("Erro ao salvar saldo Wise: ", error);
+      toast.error("Ocorreu um erro ao salvar o saldo.");
+    }
   }
 
   return (
@@ -45,7 +66,7 @@ export function WiseModal({ isOpen, onRequestClose }: WiseModalProps) {
           onChange={(e) => setInputValue(e.target.value)}
         />
 
-        <button type="submit" onClick={handleSaveBalance}>Cadastrar</button>
+        <button type="submit" onClick={handleSaveBalance}>Atualizar</button>
       </S.Container>
     </Modal>
   );

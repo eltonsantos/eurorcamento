@@ -1,6 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { onValue, ref, set } from "firebase/database";
 import { createContext, ReactNode, useContext, useEffect, useState } from "react";
+import { toast } from "react-toastify";
 import { realTimeDatabase } from "../services/firebaseconfig";
 
 interface WiseTransactionsContextData {
@@ -29,8 +30,14 @@ export function WiseTransactionsProvider({ children }: { children: ReactNode }) 
 
   async function saveWiseBalance(balance: number) {
     await set(wiseBalanceRef, { balance })
-      .then(() => console.log("Saldo Wise atualizado"))
-      .catch((error) => console.error("Erro ao salvar saldo Wise:", error));
+      .then(() => {
+        toast.success("Saldo Wise atualizado");
+        console.log("Saldo Wise atualizado")
+      })
+      .catch((error) => {
+        toast.error(error.message);
+        console.error("Erro ao salvar saldo Wise: ", error)
+      });
   }
 
   return (

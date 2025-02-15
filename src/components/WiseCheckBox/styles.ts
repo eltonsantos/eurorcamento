@@ -6,4 +6,5 @@ export const Label = styled.label`
   gap: 0.5rem;
   text-align: right;
   width: 100%;
+  cursor: pointer;
 `

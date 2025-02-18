@@ -48,6 +48,10 @@ export const Container = styled.section`
 
     .options svg {
       cursor: pointer;
+
+      :hover {
+        filter: brightness(0.8);
+      }
     }
   }
 `;

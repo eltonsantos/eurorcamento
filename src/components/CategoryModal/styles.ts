@@ -65,9 +65,9 @@ export const TableContainer = styled.div`
 
     tr {
       height: 30px;
-      
+
       td {
-        padding: 5px;
+        padding: 5px 0px;
       }
     }
   }

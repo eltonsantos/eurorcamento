@@ -58,11 +58,27 @@ export const TableContainer = styled.div`
     color: var(--text-title);
     width: 100%;
     text-align: left;
+
+    th {
+      color: var(--text-body);
+    }
+
+    tr {
+      height: 30px;
+      
+      td {
+        padding: 5px;
+      }
+    }
   }
 
   .options {
     svg {
       cursor: pointer;
+
+      :hover {
+        filter: brightness(0.8);
+      }
     }
   }
 `;

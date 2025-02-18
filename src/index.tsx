@@ -9,6 +9,7 @@ import { TransactionsProvider } from "./hooks/useTransactions";
 
 import "react-toastify/dist/ReactToastify.css";
 import { WiseTransactionsProvider } from "./hooks/useWiseTransactions";
+import { CategoriesProvider } from "./hooks/useCategories";
 
 // createServer({
 
@@ -70,15 +71,17 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <React.StrictMode>
-    <WiseTransactionsProvider>
-      <TransactionsProvider>
-        <BrowserRouter>
-          <AuthProvider>
-            <App />
-            <ToastContainer />
-          </AuthProvider>
-        </BrowserRouter>
-      </TransactionsProvider>
-    </WiseTransactionsProvider>
+    <CategoriesProvider>
+      <WiseTransactionsProvider>
+        <TransactionsProvider>
+          <BrowserRouter>
+            <AuthProvider>
+              <App />
+              <ToastContainer />
+            </AuthProvider>
+          </BrowserRouter>
+        </TransactionsProvider>
+      </WiseTransactionsProvider>
+    </CategoriesProvider>
   </React.StrictMode>
 );

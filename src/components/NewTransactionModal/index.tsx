@@ -1,11 +1,14 @@
 import { FormEvent, useState } from "react";
 import { useTransactions } from "../../hooks/useTransactions";
+import { useCategories } from "../../hooks/useCategories";
 
 import Modal from "react-modal";
 
 import closeImg from "../../assets/close.svg";
 import incomeImg from "../../assets/income.svg";
 import outcomeImg from "../../assets/outcome.svg";
+
+import { CaretDown } from "phosphor-react";
 
 import * as Yup from "yup";
 
@@ -28,6 +31,7 @@ export function NewTransactionModal({
   onRequestClose,
 }: NewTransactionModalProps) {
   const { createTransaction } = useTransactions();
+  const { categories } = useCategories();
 
   const [title, setTitle] = useState("");
   const [amount, setAmount] = useState(0);
@@ -120,12 +124,25 @@ export function NewTransactionModal({
           </S.RadioBox>
         </S.TransactionTypeContainer>
 
-        <input
+        {/* <input
           type="text"
           placeholder="Categoria"
           value={category}
           onChange={(event) => setCategory(event.target.value)}
-        />
+        /> */}
+
+        <S.SelectContainer>
+          <select value={category} onChange={(e) => setCategory(e.target.value)} required>
+            <option value="">Selecione a categoria</option>
+            {categories.map((cat) => (
+              <option key={cat.id} value={cat.name}>
+                {cat.name}
+              </option>
+            ))}
+          </select>
+
+          <CaretDown size={20} className="icon" />
+        </S.SelectContainer>
 
         <button type="submit">Cadastrar</button>
       </S.Container>

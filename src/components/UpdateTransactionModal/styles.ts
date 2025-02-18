@@ -93,3 +93,36 @@ export const RadioBox = styled.button<RadioBoxProps>`
     color: var(--text-title);
   }
 `;
+
+export const SelectContainer = styled.div`
+  position: relative;
+  width: 100%;
+
+  select {
+    width: 100%;
+    padding: 0 1.5rem;
+    height: 4rem;
+    border-radius: 0.25rem;
+    border: 1px solid #d7d7d7;
+    background: #e7e9ee;
+    font-weight: 400;
+    font-size: 1rem;
+    color: var(--text-title);
+    appearance: none;
+    cursor: pointer;
+
+    &:focus {
+      outline: none;
+      border: 1px solid var(--dark-light);
+    }
+  }
+
+  .icon {
+    position: absolute;
+    right: 1rem; 
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+    color: var(--text-body);
+  }
+`;

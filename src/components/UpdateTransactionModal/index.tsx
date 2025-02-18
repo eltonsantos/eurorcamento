@@ -1,17 +1,20 @@
 import { FormEvent, useEffect, useState } from "react";
+import { useTransactions } from "../../hooks/useTransactions";
+import { useCategories } from "../../hooks/useCategories";
+
 import Modal from "react-modal";
 
 import closeImg from "../../assets/close.svg";
 import incomeImg from "../../assets/income.svg";
 import outcomeImg from "../../assets/outcome.svg";
 
+import { CaretDown } from "phosphor-react";
+
 import * as Yup from "yup";
 
 import { toast } from "react-toastify";
 
 import * as S from "./styles";
-
-import { useTransactions } from "../../hooks/useTransactions";
 
 interface Transaction {
   id: string;
@@ -40,6 +43,7 @@ export function UpdateTransactionModal({
   editingTransaction,
 }: UpdateTransactionModalProps) {
   const { updateTransaction } = useTransactions();
+  const { categories } = useCategories();
 
   const [id, setId] = useState("");
   const [title, setTitle] = useState("");
@@ -151,13 +155,26 @@ export function UpdateTransactionModal({
           </S.RadioBox>
         </S.TransactionTypeContainer>
 
-        <input
+        {/* <input
           type="text"
           placeholder="Categoria"
           name="category"
           value={category}
           onChange={(e) => setCategory(e.target.value)}
-        />
+        /> */}
+
+        <S.SelectContainer>
+          <select value={category} onChange={(e) => setCategory(e.target.value)} required>
+            <option value="">Selecione a categoria</option>
+            {categories.map((cat) => (
+              <option key={cat.id} value={cat.name}>
+                {cat.name}
+              </option>
+            ))}
+          </select>
+
+          <CaretDown size={20} className="icon" />
+        </S.SelectContainer>
 
         <button type="submit">Atualizar</button>
       </S.Container>

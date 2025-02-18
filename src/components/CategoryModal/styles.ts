@@ -59,4 +59,10 @@ export const TableContainer = styled.div`
     width: 100%;
     text-align: left;
   }
+
+  .options {
+    svg {
+      cursor: pointer;
+    }
+  }
 `;

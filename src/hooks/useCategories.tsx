@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { onValue, ref, push, remove, update } from "firebase/database";
+import { onValue, ref, push, update } from "firebase/database";
 import { createContext, ReactNode, useContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { realTimeDatabase } from "../services/firebaseconfig";
@@ -19,7 +19,6 @@ interface CategoriesContextData {
   categories: Category[];
   createCategory: (category: CategoryInput) => Promise<void>;
   updateCategory: (category: Category) => Promise<void>;
-  removeCategory: (id: string) => Promise<void>;
 }
 
 const CategoriesContext = createContext<CategoriesContextData>(
@@ -55,29 +54,24 @@ export function CategoriesProvider({ children }: CategoriesProviderProps) {
   }
 
   async function updateCategory(category: Category) {
-    await update(ref(realTimeDatabase, category.id), category)
-      .then(() => {
-        toast.success("Categoria atualizada com sucesso");
-      })
-      .catch((err) => {
-        toast.error("Ocorreu um erro ao atualizar");
-        console.log(err);
-      });
-  }
+    try {
+      await update(ref(realTimeDatabase, `categories/${category.id}`), { name: category.name });
 
-  async function removeCategory(id: string) {
-    await remove(ref(realTimeDatabase, `categories/${id}`))
-      .then(() => {
-        toast.success("Categoria removida com sucesso");
-      })
-      .catch((error) => {
-        toast.error(error.message);
-        console.error("Erro ao remover categoria: ", error);
-      });
+      setCategories((prevCategories) =>
+        prevCategories.map((cat) =>
+          cat.id === category.id ? { ...cat, name: category.name } : cat
+        )
+      );
+
+      toast.success("Categoria atualizada com sucesso");
+    } catch (error) {
+      toast.error("Erro ao atualizar categoria");
+      console.error("Erro ao atualizar categoria: ", error);
+    }
   }
 
   return (
-    <CategoriesContext.Provider value={{ categories, createCategory, updateCategory, removeCategory }}>
+    <CategoriesContext.Provider value={{ categories, createCategory, updateCategory }}>
       {children}
     </CategoriesContext.Provider>
   )
